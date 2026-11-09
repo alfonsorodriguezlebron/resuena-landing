@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Resuena · Todo lo que se dice de ti</title>
+<title>Resuena · Entérate antes que nadie</title>
 <meta name="description" content="Resuena escucha la radio, la TV, la prensa y los digitales de Puerto Rico 24/7 y te dice quién habló de ti. Programa piloto.">
-<meta property="og:title" content="Resuena · Todo lo que se dice de ti">
+<meta property="og:title" content="Resuena · Entérate antes que nadie">
 <meta property="og:description" content="Radio, TV, prensa y digitales de Puerto Rico, 24/7. Programa piloto abierto.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='6' fill='%23161616'/%3E%3Crect x='5' y='8' width='2' height='6' rx='1' fill='%23fff'/%3E%3Crect x='9' y='5' width='2' height='12' rx='1' fill='%23fff'/%3E%3Crect x='13' y='3' width='2' height='16' rx='1' fill='%23E5484D'/%3E%3Crect x='17' y='7' width='2' height='8' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@ h1{margin:24px 0 0;font-size:clamp(40px,min(7vw,8.4vh),76px);line-height:1.04;le
 .chip svg{flex:none}
 
 /* voices */
-.voices{position:relative;width:100%;max-width:540px;height:110px;margin:78px auto 0}
+.voices{position:relative;width:100%;max-width:540px;height:110px;margin:88px auto 0}
 .v{position:absolute;transform:translate(-50%,-50%);z-index:1}
 .v.on{z-index:3}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px #E2E2E2,0 6px 14px -6px rgba(0,0,0,.35);transition:transform .25s}
@@ -69,7 +69,7 @@ button:hover{background:#333}
   main{padding:8px 0 16px}
   h1{margin-top:16px}
   .lead{margin-top:14px;line-height:1.65}
-  .voices{margin-top:70px;height:96px}
+  .voices{margin-top:88px;height:88px}
   form{margin-top:18px}
   .cov{padding:14px 0 16px}
 }
@@ -96,15 +96,15 @@ button:hover{background:#333}
   <main>
     <a class="pill" href="#signup"><span class="dot"></span>Programa piloto · Únete <span aria-hidden="true">→</span></a>
 
-    <h1>Todo lo que se dice de ti.</h1>
+    <h1>Entérate antes que nadie.</h1>
 
     <p class="lead">
-      <b>Resuena</b> escucha
+      <b>Resuena</b> es la IA que escucha
       <span class="chip"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="12" height="8" rx="2"/><path d="M4 6l8-4"/><circle cx="10.5" cy="10" r="1.6"/></svg>la radio</span>,
       <span class="chip"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="12" height="9" rx="2"/><path d="M6 14h4"/></svg>la TV</span>,
       <span class="chip"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="11" height="11" rx="1.5"/><path d="M5 6h6M5 8.5h6M5 11h4"/></svg>la prensa</span> y
       <span class="chip"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12"/></svg>los digitales</span>
-      de Puerto Rico 24/7, y te dice quién habló de ti, dónde y qué dijo.
+      de Puerto Rico por ti, y te avisa quién habló de ti y en qué tono. <b>La IA escucha, tu equipo decide.</b>
     </p>
 
     <div class="voices" id="voices" aria-hidden="true"></div>
@@ -112,7 +112,7 @@ button:hover{background:#333}
     <form id="signup" novalidate>
       <label for="email" style="position:absolute;left:-9999px">Correo electrónico</label>
       <input id="email" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" required>
-      <button type="submit">Quiero acceso</button>
+      <button type="submit">Pedir acceso</button>
     </form>
     <div class="ok" id="ok">Gracias. Te contactamos pronto.</div>
     <p class="fine" id="fine">Aún no hemos lanzado. Estamos construyendo con un grupo pequeño.</p>
