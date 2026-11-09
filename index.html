@@ -41,7 +41,7 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .chip svg{flex:none}
 
 /* who-talked-about-you: up to 3 white cards, solid border, topic tag */
-.demo{position:relative;width:100%;max-width:620px;height:226px;margin:30px auto 0;text-align:left;overflow:hidden}
+.demo{position:relative;width:100%;max-width:620px;height:226px;margin:14px auto 0;text-align:left;overflow:hidden}
 .mc{position:absolute;left:4px;right:4px;top:4px;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid #EEEEF1;border-radius:8px;padding:11px 14px;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,border-color .2s ease;cursor:default}
 .mc:hover{border-color:#EBCFE0;transform:var(--t) translateY(-2px)}
 .mc .a{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3B45;background:#F4F4F5!important}
@@ -76,7 +76,8 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
   .lead{margin-top:14px;line-height:1.65}
   .demo{margin-top:28px;height:168px}
   form{margin-top:22px}
-  .demo{height:152px;margin-top:24px}
+  .demo{height:152px;margin-top:12px}
+  .sum{margin-top:20px}
   .cov{padding:14px 0 16px}
 }
 @media (max-width:560px){
@@ -91,6 +92,17 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 }
 @media (prefers-reduced-motion:reduce){.dot{animation:none}}
 
+
+/* daily summary above the cards */
+.sum{width:100%;max-width:620px;margin:30px auto 0;display:flex;flex-direction:column;gap:8px;text-align:left}
+.sum .row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:#6B6B76}
+.sum .row b{font-weight:500;color:var(--ink)}
+.sum .mono,.mc .l2{font-family:"Geist Mono",ui-monospace,monospace;letter-spacing:-.01em}
+.sum .bar{display:flex;gap:3px;height:8px}
+.sum .bar i{display:block;border-radius:2px}
+.sum .lg{display:flex;gap:16px;font-size:12px;color:#6B6B76}
+.sum .lg span{display:inline-flex;align-items:center;gap:6px}
+.sum .lg i{width:8px;height:8px;border-radius:2px;display:block}
 </style>
 </head>
 <body>
@@ -125,6 +137,11 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
     </form>
     <div class="ok" id="ok">Gracias. Te contactamos pronto.</div>
 
+    <div class="sum" aria-label="Resumen de hoy">
+      <div class="row"><span><b>Hoy</b> · <span class="mono">47</span> menciones</span><span class="mono">en vivo</span></div>
+      <div class="bar"><i style="flex:18;background:#2F9E6B"></i><i style="flex:21;background:#E5484D"></i><i style="flex:8;background:#C9C9D2"></i></div>
+      <div class="lg"><span><i style="background:#2F9E6B"></i><span class="mono">18</span> positivas</span><span><i style="background:#E5484D"></i><span class="mono">21</span> negativas</span><span><i style="background:#C9C9D2"></i><span class="mono">8</span> mixtas</span></div>
+    </div>
     <div class="demo" id="demo" aria-hidden="true"></div>
       </main>
 
