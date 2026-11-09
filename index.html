@@ -34,7 +34,7 @@ h1{margin:0;font-family:Newsreader,Georgia,serif;font-size:clamp(44px,min(7.6vw,
 h1 em{font-style:normal;color:var(--blue);white-space:nowrap}
 h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .lead{margin:22px auto 0;max-width:580px;font-size:16.5px;line-height:1.75;color:var(--muted)}
-.lead b{color:var(--ink);font-weight:500}
+.lead b{color:var(--ink);font-weight:400}
 .chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 9px;font-weight:500;color:var(--ink);white-space:nowrap;line-height:1.6}
 .chip svg{flex:none}
 
@@ -65,10 +65,14 @@ button:hover{background:var(--blue)}
 .fine{margin:12px 0 0;font-size:13.5px;color:var(--soft)}
 .ok{display:none;margin:34px auto 0;font-size:15px;color:#1F6B3D;background:#EEF8F1;border-radius:12px;padding:13px 16px}
 
-/* coverage line */
-.cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;padding:20px 0 26px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
-.cov b{color:var(--ink);font-weight:600}
-.cov .prog{color:var(--blue)}
+/* coverage */
+.cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;padding:22px 0 26px;border-top:1px solid var(--line)}
+.ci{display:flex;align-items:center;gap:11px}
+.ci .ic{width:34px;height:34px;border-radius:9px;background:#F5F5F4;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:none}
+.ci .n{font-family:Newsreader,Georgia,serif;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.ci .lb{font-size:12.5px;color:var(--muted);line-height:1.25}
+.ci.prog .ic{background:#fff;border-style:dashed;color:var(--blue)}
+.ci.prog .n{font-family:Geist,sans-serif;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:0;line-height:1.2}
 
 @media (max-height:780px) and (min-width:561px){
   .top{padding:14px 0}
@@ -128,9 +132,11 @@ button:hover{background:var(--blue)}
 /* ============================================================
    COVERAGE: update these numbers as sources are added.
    ============================================================ */
-const COVERAGE = [["30","emisoras de radio"],["4","canales de TV"],["12","periódicos"],["33","medios digitales"],["5","fuentes de gobierno"]];
+const COVERAGE = [["30","emisoras","de radio","radio"],["4","canales","de TV","tv"],["12","periódicos","","prensa"],["33","medios","digitales","web"],["5","fuentes","de gobierno","gob"]];
+const ICONS = {"radio": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"6\" width=\"12\" height=\"8\" rx=\"2\"/><path d=\"M4 6l8-4\"/><circle cx=\"10.5\" cy=\"10\" r=\"1.6\"/><path d=\"M4.5 9h2M4.5 11h2\"/></svg>", "tv": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"3\" width=\"12\" height=\"8.5\" rx=\"1.8\"/><path d=\"M5.5 14h5\"/></svg>", "prensa": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2.5\" y=\"2.5\" width=\"11\" height=\"11\" rx=\"1.5\"/><path d=\"M5 5.5h6M5 8h6M5 10.5h4\"/></svg>", "web": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"8\" cy=\"8\" r=\"6\"/><path d=\"M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12\"/></svg>", "gob": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M2 6.5L8 3l6 3.5\"/><path d=\"M3.5 7v5M6.5 7v5M9.5 7v5M12.5 7v5M2 13.5h12\"/></svg>", "redes": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"4\" cy=\"8\" r=\"1.8\"/><circle cx=\"12\" cy=\"4\" r=\"1.8\"/><circle cx=\"12\" cy=\"12\" r=\"1.8\"/><path d=\"M5.6 7.2l4.8-2.4M5.6 8.8l4.8 2.4\"/></svg>"};
 document.getElementById("cov").innerHTML =
-  COVERAGE.map(([n,l])=>`<span><b>${n}</b> ${l}</span>`).join("") + `<span class="prog">● Redes sociales en progreso</span>`;
+  COVERAGE.map(([n,a,b,k])=>`<div class="ci"><span class="ic">${ICONS[k]}</span><div><div class="n">${n}</div><div class="lb">${a} ${b}</div></div></div>`).join("") +
+  `<div class="ci prog"><span class="ic">${ICONS.redes}</span><div><div class="n">Redes sociales</div><div class="lb">en progreso</div></div></div>`;
 
 /* ============================================================
    VOICES: who talks about you (illustrative roles, no real names)
