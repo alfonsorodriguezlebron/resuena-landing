@@ -35,13 +35,16 @@ h1{margin:24px 0 0;font-size:clamp(40px,min(7vw,8.4vh),76px);line-height:1.04;le
 
 /* voices */
 .voices{position:relative;width:100%;max-width:540px;height:110px;margin:78px auto 0}
-.v{position:absolute;transform:translate(-50%,-50%)}
+.v{position:absolute;transform:translate(-50%,-50%);z-index:1}
+.v.on{z-index:3}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px #E2E2E2,0 6px 14px -6px rgba(0,0,0,.35);transition:transform .25s}
 .v.on .av{transform:scale(1.12)}
 .av.anon{background:#fff!important;color:var(--soft);box-shadow:0 0 0 1px #E2E2E2;border-style:dashed;border-color:#D4D4D4}
 .bub{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,6px) scale(.96);opacity:0;pointer-events:none;background:#161616;color:#fff;border-radius:12px;padding:8px 11px;font-size:12.5px;line-height:1.35;text-align:left;width:max-content;max-width:230px;transition:opacity .25s,transform .25s;z-index:2}
 .bub::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#161616}
 .bub b{font-weight:600}
+.tn i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:0}
+.sd{position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;border:2px solid #fff}
 .bub span{display:block;color:#A8A8A8;font-size:11.5px;margin-top:2px}
 .v.on .bub{opacity:1;transform:translate(-50%,0) scale(1)}
 .v.l .bub{left:-8px;transform:translate(0,6px)} .v.l.on .bub{transform:translate(0,0)} .v.l .bub::after{left:29px}
@@ -131,18 +134,19 @@ document.getElementById("cov").innerHTML =
    x/y are % of the box.
    ============================================================ */
 const VOICES = [
-  {i:"LO", c:"#3B5BDB", x:8,  y:60, who:"Locutor",            where:"WKAQ 580 · 6:42 a.m.",   say:"habló de ti en el panel de la mañana"},
-  {i:"CO", c:"#0C8599", x:26, y:22, who:"Columnista",         where:"El Nuevo Día",           say:"te mencionó en su columna"},
-  {i:"",   c:"",        x:44, y:78, who:"Oyente",             where:"NotiUno 630 · llamada",  say:"llamó para hablar de ti", anon:true},
-  {i:"AN", c:"#E8590C", x:60, y:28, who:"Analista",           where:"Telemundo PR · noticiero",say:"comentó sobre ti en el noticiero"},
-  {i:"PO", c:"#7048E8", x:76, y:72, who:"Podcast de política",where:"YouTube · próximamente",  say:"habló de ti en el episodio de hoy"},
-  {i:"SE", c:"#2F9E44", x:93, y:30, who:"Comunicado",         where:"Senado de Puerto Rico",  say:"te nombró en un comunicado"},
+  {i:"LO", c:"#3B5BDB", x:8,  y:60, t:"neg", who:"Locutor",            where:"WKAQ 580 · 6:42 a.m.",    say:"te criticó por los apagones"},
+  {i:"CO", c:"#0C8599", x:26, y:22, t:"pos", who:"Columnista",         where:"El Nuevo Día",            say:"defendió tu propuesta de vivienda"},
+  {i:"",   c:"",        x:44, y:78, t:"neg", who:"Oyente",             where:"NotiUno 630 · llamada",   say:"llamó para quejarse de ti", anon:true},
+  {i:"AN", c:"#E8590C", x:60, y:28, t:"neu", who:"Analista",           where:"Telemundo PR · noticiero", say:"habló de tu presupuesto"},
+  {i:"PO", c:"#7048E8", x:76, y:72, t:"pos", who:"Podcast de política",where:"YouTube · próximamente",   say:"te elogió en el episodio de hoy"},
+  {i:"SE", c:"#2F9E44", x:93, y:30, t:"neu", who:"Comunicado",         where:"Senado de Puerto Rico",   say:"te nombró en un comunicado"},
 ];
+const TONE = {pos:["Positivo","#2F9E44"], neg:["Negativo","#E5484D"], neu:["Neutral","#9A9A9A"]};
 const box=document.getElementById("voices");
 box.innerHTML = VOICES.map((v,k)=>`
   <div class="v${v.x<20?" l":v.x>80?" r":""}" style="left:${v.x}%;top:${v.y}%">
-    <div class="bub"><b>${v.who}</b> ${v.say}<span>${v.where}</span></div>
-    <div class="av${v.anon?" anon":""}" style="background:${v.c}">${v.anon?"?":v.i}</div>
+    <div class="bub"><b>${v.who}</b> ${v.say}<span class="tn"><i style="background:${TONE[v.t][1]}"></i>${TONE[v.t][0]} · ${v.where}</span></div>
+    <div class="av${v.anon?" anon":""}" style="background:${v.c}">${v.anon?"?":v.i}</div><i class="sd" style="background:${TONE[v.t][1]}"></i>
   </div>`).join("");
 const els=[...box.children];
 let k=0;
@@ -162,7 +166,7 @@ els.forEach((e,j)=>e.addEventListener("mouseenter",()=>{els.forEach(x=>x.classLi
   const add=(x,y,col,big)=>rs.push({x:x*dpr,y:y*dpr,r:0,max:(big?420:180)*dpr,col});
   const hex2=h=>h? [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)] : [229,72,77];
   // speaker rings when a bubble opens
-  new MutationObserver(m=>m.forEach(r=>{ if(r.target.classList.contains("on")){ const a=r.target.querySelector(".av").getBoundingClientRect(); const v=VOICES[els.indexOf(r.target)]; const c=hex2(v.c); add(a.left+a.width/2,a.top+a.height/2,c,true); setTimeout(()=>add(a.left+a.width/2,a.top+a.height/2,c,true),350);} })).observe(box,{subtree:true,attributes:true,attributeFilter:["class"]});
+  new MutationObserver(m=>m.forEach(r=>{ if(r.target.classList.contains("on")){ const a=r.target.querySelector(".av").getBoundingClientRect(); const v=VOICES[els.indexOf(r.target)]; const c=hex2(TONE[v.t][1]); add(a.left+a.width/2,a.top+a.height/2,c,true); setTimeout(()=>add(a.left+a.width/2,a.top+a.height/2,c,true),350);} })).observe(box,{subtree:true,attributes:true,attributeFilter:["class"]});
   let last=0; addEventListener("pointermove",e=>{const t=performance.now(); if(t-last>140){add(e.clientX,e.clientY,[22,22,22],false); last=t;}});
   addEventListener("pointerdown",e=>{add(e.clientX,e.clientY,[229,72,77],true); setTimeout(()=>add(e.clientX,e.clientY,[229,72,77],true),180);});
   (function tick(){ ctx.clearRect(0,0,W,H);
