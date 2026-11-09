@@ -115,6 +115,8 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 .sum .bar i{display:block;border-radius:2px;transition:flex-grow .6s cubic-bezier(.2,.8,.2,1)}
 .sum .row span{white-space:nowrap}
 .sum .lg{display:flex;gap:14px;font-size:12.5px;color:#8C8799}
+.sum .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.sum .lg .num{font-size:13px}
 .sum .lg .p{color:#2F8A5E}.sum .lg .n{color:#C8473F}.sum .lg .m{color:#6B6B76}
 /* card sentiment: soft highlight behind what they said */
 .mc.pos{--cs:#E6F5EE}.mc.neg{--cs:#FDECEC}.mc.neu{--cs:#F1F0F4}
@@ -163,7 +165,7 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
     <div class="ok" id="ok">Listo. Te contactamos pronto para coordinar tu piloto.</div>
 
     <div class="sum" aria-label="Resumen de hoy">
-      <div class="row"><span><b>Hoy</b> · <span class="num" id="n-all">47</span><span class="w"> menciones</span></span><span class="lg"><span><span class="num p" id="n-pos">18</span> positivas</span><span><span class="num n" id="n-neg">21</span> negativas</span><span><span class="num m" id="n-neu">8</span> mixtas</span></span></div>
+      <div class="row"><span><b>Hoy</b> · <span class="num" id="n-all">47</span><span class="w"> menciones</span></span><span class="lg"><span><span class="num p" id="n-pos">18</span><span class="sr"> positivas</span></span><span><span class="num n" id="n-neg">21</span><span class="sr"> negativas</span></span><span><span class="num m" id="n-neu">8</span><span class="sr"> mixtas</span></span></span></div>
       <div class="bar"><i id="b-pos" style="flex:18;background:#A6DCBF"></i><i id="b-neg" style="flex:21;background:#F5B3B5"></i><i id="b-neu" style="flex:8;background:#DEDCE4"></i></div>
     </div>
     <div class="demo" id="demo" aria-hidden="true"></div>
