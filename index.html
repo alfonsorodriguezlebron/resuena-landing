@@ -115,8 +115,21 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 .sum .bar i{display:block;border-radius:2px;transition:flex-grow .6s cubic-bezier(.2,.8,.2,1)}
 .sum .row span{white-space:nowrap}
 .sum .lg{display:flex;gap:14px;font-size:12.5px;color:#8C8799}
-.sum .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.sum .lg .num{font-size:13px}
+.sum .one,.sum .under,.sum .bar em{display:none}
+.sum .bar i{position:relative;overflow:hidden}
+.sum .bar em{font-style:normal;font-size:11px;font-weight:500;color:#3B3B45;position:absolute;left:8px;top:50%;transform:translateY(-50%);font-variant-numeric:tabular-nums}
+.sum .under{gap:3px;font-size:12px;color:#8C8799;white-space:nowrap}
+.sum .under span{flex-basis:0;min-width:0;transition:flex-grow .6s cubic-bezier(.2,.8,.2,1)}
+.sum .under b{font-weight:500;color:var(--ink)}
+.sum .one{font-size:12.5px;color:#8C8799}.sum .one .num{color:#C8473F}
+body[data-sv="b"] .sum .lg{display:none}
+body[data-sv="c"] .sum .row{display:none} body[data-sv="c"] .sum .under{display:flex}
+body[data-sv="d"] .sum .lg{display:none} body[data-sv="d"] .sum .one{display:inline}
+body[data-sv="e"] .sum .row{display:none}
+body[data-sv="f"] .sum .lg{display:none} body[data-sv="f"] .sum .bar{height:20px} body[data-sv="f"] .sum .bar i{border-radius:4px} body[data-sv="f"] .sum .bar em{display:block}
+.sv{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9;display:flex;gap:4px;padding:5px;background:#141414;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.sv button{all:unset;cursor:pointer;font-size:12.5px;font-weight:500;color:#BDBDBD;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.sv button.on{background:#fff;color:#141414}
 .sum .lg .p{color:#2F8A5E}.sum .lg .n{color:#C8473F}.sum .lg .m{color:#6B6B76}
 /* card sentiment: soft highlight behind what they said */
 .mc.pos{--cs:#E6F5EE}.mc.neg{--cs:#FDECEC}.mc.neu{--cs:#F1F0F4}
@@ -165,8 +178,9 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
     <div class="ok" id="ok">Listo. Te contactamos pronto para coordinar tu piloto.</div>
 
     <div class="sum" aria-label="Resumen de hoy">
-      <div class="row"><span><b>Hoy</b> · <span class="num" id="n-all">47</span><span class="w"> menciones</span></span><span class="lg"><span><span class="num p" id="n-pos">18</span><span class="sr"> positivas</span></span><span><span class="num n" id="n-neg">21</span><span class="sr"> negativas</span></span><span><span class="num m" id="n-neu">8</span><span class="sr"> mixtas</span></span></span></div>
-      <div class="bar"><i id="b-pos" style="flex:18;background:#A6DCBF"></i><i id="b-neg" style="flex:21;background:#F5B3B5"></i><i id="b-neu" style="flex:8;background:#DEDCE4"></i></div>
+      <div class="row"><span class="tot"><b>Hoy</b> · <span class="num" id="n-all">47</span><span class="w"> menciones</span></span><span class="lg"><span><span class="num p" id="n-pos">18</span> positivas</span><span><span class="num n" id="n-neg">21</span> negativas</span><span><span class="num m" id="n-neu">8</span> mixtas</span></span><span class="one"><span class="num" id="n-top">45%</span> <span id="n-topw">negativas</span></span></div>
+      <div class="bar"><i id="b-pos" style="flex:18;background:#A6DCBF"><em class="c-pos">18</em></i><i id="b-neg" style="flex:21;background:#F5B3B5"><em class="c-neg">21</em></i><i id="b-neu" style="flex:8;background:#DEDCE4"><em class="c-neu">8</em></i></div>
+      <div class="under"><span id="u-pos" style="flex:18"><b class="c-pos">18</b> positivas</span><span id="u-neg" style="flex:21"><b class="c-neg">21</b> negativas</span><span id="u-neu" style="flex:8"><b class="c-neu">8</b> mixtas</span></div>
     </div>
     <div class="demo" id="demo" aria-hidden="true"></div>
       </main>
@@ -193,9 +207,25 @@ const TOPIC=["Llamada","Partido","Prensa","Escuelas","Maestros","Convención","G
 const COUNTS={pos:18,neg:21,neu:8};
 const setNum=(el,v)=>{ el.textContent=v; };
 const tally=t=>{ COUNTS[t]++;
-  for(const k in COUNTS) document.getElementById("b-"+k).style.flexGrow=COUNTS[k];
+  const all=COUNTS.pos+COUNTS.neg+COUNTS.neu;
+  for(const k in COUNTS){ document.getElementById("b-"+k).style.flexGrow=COUNTS[k]; document.getElementById("u-"+k).style.flexGrow=COUNTS[k];
+    document.querySelectorAll(".c-"+k).forEach(e=>e.textContent=COUNTS[k]); }
   setNum(document.getElementById("n-"+t),COUNTS[t]);
-  setNum(document.getElementById("n-all"),COUNTS.pos+COUNTS.neg+COUNTS.neu); };
+  setNum(document.getElementById("n-all"),all);
+  const top=COUNTS.neg>=COUNTS.pos?"neg":"pos";
+  document.getElementById("n-top").textContent=Math.round(COUNTS[top]/all*100)+"%";
+  document.getElementById("n-topw").textContent=top==="neg"?"negativas":"positivas";
+  document.getElementById("n-top").style.color=top==="neg"?"#C8473F":"#2F8A5E"; };
+/* Summary styles. Everyone sees A. Add ?bar to the URL for a switcher. */
+document.body.dataset.sv="a";
+if(new URLSearchParams(location.search).has("bar")){
+  const L=[["a","A · Actual"],["b","B · Solo total"],["c","C · Debajo"],["d","D · Un dato"],["e","E · Solo barra"],["f","F · Dentro"]];
+  const bar=document.createElement("div"); bar.className="sv";
+  const set=v=>{ document.body.dataset.sv=v; [...bar.children].forEach(b=>b.classList.toggle("on",b.dataset.v===v)); };
+  L.forEach(([v,l])=>{ const b=document.createElement("button"); b.dataset.v=v; b.textContent=l; b.onclick=()=>set(v); bar.appendChild(b); });
+  document.body.appendChild(bar); set("a");
+  addEventListener("keydown",e=>{ const i=L.findIndex(x=>x[0]===document.body.dataset.sv); if(e.key==="ArrowRight") set(L[(i+1)%L.length][0]); if(e.key==="ArrowLeft") set(L[(i+L.length-1)%L.length][0]); });
+}
 const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#3B3B45"/></svg></span>';
 (function(){
   const demo=document.getElementById("demo"); let k=0; const list=[]; const GAP=10;
