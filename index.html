@@ -88,6 +88,38 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
   .lead{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){.dot{animation:none}}
+
+/* ===== color looks (temporary, ?look=1..5) ===== */
+/* 1 · lilac page */
+body.look1{background:#F4F0FA}
+body.look1 .chip{background:#fff;border-color:#E4DAF1}
+body.look1 input{background:#fff}
+/* 2 · colored panel behind the cards */
+body.look2 .demo{overflow:visible}
+body.look2 .demo::before{content:"";position:absolute;inset:-18px -22px;background:#EEE7F8;border-radius:22px;z-index:0}
+body.look2 .mc{z-index:1;border-color:#fff!important}
+/* 3 · pastel media tags */
+body.look3 .chip{border:0;font-weight:500}
+body.look3 .chip:nth-of-type(1){background:#EEE7F8}
+body.look3 .chip:nth-of-type(2){background:#E3EEFC}
+body.look3 .chip:nth-of-type(3){background:#E2F3E9}
+body.look3 .chip:nth-of-type(4){background:#FDEBDD}
+body.look3 .chip:nth-of-type(5){background:#FBE4EF}
+/* 4 · highlighter on the headline + pastel tags */
+body.look4 h1 em{background:#E4D9F7;border-radius:10px;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+body.look4 .chip{border:0;background:#F1ECF9}
+/* 5 · dark */
+body.look5{background:#15131C;color:#F4F2F8}
+body.look5 h1,body.look5 .lead,body.look5 .lead b,body.look5 .logo{color:#F4F2F8}
+body.look5 h1 svg path,body.look5 .logo svg path{fill:#F4F2F8}
+body.look5 .chip{background:#221F2C;border-color:#34303F;color:#F4F2F8}
+body.look5 input{background:#1E1B27;border-color:#34303F;color:#fff;box-shadow:none}
+body.look5 button{background:#F4F2F8;color:#15131C;border-color:#fff;border-bottom-color:#BDB6CC}
+body.look5 button kbd{color:#6B6680;border-color:#C9C3D6}
+.lk{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid #E6E6E6;border-radius:10px;padding:4px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);font-size:12px;color:#141414}
+.lk span{color:#999;padding:0 6px}
+.lk a{display:grid;place-items:center;min-width:26px;height:26px;border-radius:7px;cursor:pointer}
+.lk a.on{background:#141414;color:#fff}
 </style>
 </head>
 <body>
@@ -174,6 +206,16 @@ document.getElementById("signup").addEventListener("submit", async e=>{
   else { location.href=`mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent("Piloto Resuena")}&body=${encodeURIComponent("Quiero unirme al piloto. Mi correo: "+input.value)}`; }
   e.target.style.display="none"; document.getElementById("ok").style.display="block";
 });
+
+/* color looks switcher (temporary) */
+(function(){
+  const N={0:"Actual",1:"Fondo lila",2:"Panel lila",3:"Etiquetas pastel",4:"Resaltador",5:"Oscuro"};
+  const set=n=>{ document.body.className=document.body.className.replace(/look\d/g,"").trim(); if(n) document.body.classList.add("look"+n);
+    document.querySelectorAll(".lk a").forEach(a=>a.classList.toggle("on",a.dataset.n==n)); try{history.replaceState(null,"","?look="+n)}catch(_){} };
+  document.body.insertAdjacentHTML("beforeend",`<div class="lk"><span>Color</span>${Object.keys(N).map(n=>`<a data-n="${n}" title="${N[n]}">${n==0?"—":n}</a>`).join("")}</div>`);
+  document.querySelectorAll(".lk a").forEach(a=>a.addEventListener("click",()=>set(+a.dataset.n)));
+  set(+(new URLSearchParams(location.search).get("look"))||0);
+})();
 </script>
 </body>
 </html>
