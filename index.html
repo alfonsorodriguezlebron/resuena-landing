@@ -45,6 +45,7 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .mc{position:absolute;left:4px;right:4px;top:4px;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid #EEEEF1;border-radius:8px;padding:11px 14px;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,border-color .2s ease;cursor:default}
 .mc:hover{border-color:#EBCFE0;transform:var(--t) translateY(-2px)}
 .mc .a{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3B45;background:#F4F4F5!important}
+.mc .a img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .mc .a.anon{background:#fff!important;border:2px dashed #DCD2E8;color:#8C83A0}
 .mc .tx{flex:1;min-width:0}
 .mc .l1{font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -107,6 +108,7 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 .mc.pos{--cs:#E6F5EE}.mc.neg{--cs:#FDECEC}.mc.neu{--cs:#F1F0F4}
 .mc .say{background:var(--cs);border-radius:3px;padding:1px 4px}
 </style>
+<link rel="preload" as="image" href="avatars/cp.webp"><link rel="preload" as="image" href="avatars/lo.webp"><link rel="preload" as="image" href="avatars/lp.webp"><link rel="preload" as="image" href="avatars/ls.webp"><link rel="preload" as="image" href="avatars/le.webp"><link rel="preload" as="image" href="avatars/co.webp">
 </head>
 <body>
 <div class="page" style="position:relative;z-index:1">
@@ -156,12 +158,12 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* Notifications: who talked about you. Based on real monitored mentions, shown by role only (no names, no audio). */
 const NOTES=[
   {i:"",   anon:true, who:"Oyente",                   say:"llamó para quejarse de ti",               where:"NotiUno 630 · 7:15 a.m.",   t:"neg"},
-  {i:"CP", who:"Comentarista político",               say:"te defendió de ataques desde adentro",    where:"Radio Isla · 3:10 p.m.",  t:"pos"},
-  {i:"LO", who:"Locutora",                            say:"te criticó por controlar la información", where:"WKAQ 580 · 3:36 p.m.",    t:"neg"},
-  {i:"LP", who:"Líder política",                      say:"defendió tu protocolo en las escuelas",   where:"Radio Isla · 7:38 a.m.",  t:"pos"},
-  {i:"LS", who:"Líder sindical",                      say:"reclamó el pago a los maestros",          where:"NotiUno 630 · 6:42 a.m.", t:"neg"},
-  {i:"LE", who:"Legislador de tu partido",            say:"dijo que la controversia es autoinfligida",where:"NotiUno 630 · 9:11 a.m.", t:"neg"},
-  {i:"CO", who:"Comentarista",                        say:"culpó a tu equipo, no a ti",              where:"Radio",                   t:"neu"},
+  {i:"CP", img:"avatars/cp.webp", who:"Comentarista político",               say:"te defendió de ataques desde adentro",    where:"Radio Isla · 3:10 p.m.",  t:"pos"},
+  {i:"LO", img:"avatars/lo.webp", who:"Locutora",                            say:"te criticó por controlar la información", where:"WKAQ 580 · 3:36 p.m.",    t:"neg"},
+  {i:"LP", img:"avatars/lp.webp", who:"Líder política",                      say:"defendió tu protocolo en las escuelas",   where:"Radio Isla · 7:38 a.m.",  t:"pos"},
+  {i:"LS", img:"avatars/ls.webp", who:"Líder sindical",                      say:"reclamó el pago a los maestros",          where:"NotiUno 630 · 6:42 a.m.", t:"neg"},
+  {i:"LE", img:"avatars/le.webp", who:"Legislador de tu partido",            say:"dijo que la controversia es autoinfligida",where:"NotiUno 630 · 9:11 a.m.", t:"neg"},
+  {i:"CO", img:"avatars/co.webp", who:"Comentarista",                        say:"culpó a tu equipo, no a ti",              where:"Radio",                   t:"neu"},
 ];
 // pastel per card: border, hover border, soft fill (avatar, tag, play)
 const PASTEL=[{bd:"#DCCEF5",bdh:"#C4AEEE",soft:"#F3EEFC"},{bd:"#C9DDFB",bdh:"#A9C7F6",soft:"#EDF4FE"},{bd:"#C8EBD6",bdh:"#A6DDBD",soft:"#ECF8F1"},{bd:"#FBDCC8",bdh:"#F6C5A6",soft:"#FEF3EC"},{bd:"#F7D2E4",bdh:"#F0B5D1",soft:"#FDEFF6"}];
@@ -177,7 +179,7 @@ const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><pat
 (function(){
   const demo=document.getElementById("demo"); let k=0; const list=[]; const GAP=10;
   const make=(v,n)=>{ const el=document.createElement("div"); el.className="mc "+v.t; const c=PASTEL[n%PASTEL.length]; el.style.setProperty("--bd",c.bd); el.style.setProperty("--bdh",c.bdh); el.style.setProperty("--soft2",c.soft);
-    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> <span class="say">${v.say}</span></div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}</div></div>${PLAY}`; return el; };
+    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.img?`<img src="${v.img}" alt="">`:v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> <span class="say">${v.say}</span></div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}</div></div>${PLAY}`; return el; };
   const fits=()=>{ let y=0,c=0; for(const el of list){ y+=el.offsetHeight; if(y>demo.clientHeight-4) break; c++; y+=GAP; } return Math.max(1,c); };
   const place=()=>{ const max=fits(); let y=0; list.forEach((el,i)=>{ const t=i<max?`translateY(${y}px)`:`translateY(${demo.clientHeight}px)`; el.style.setProperty("--t",t); el.style.transform=t; el.style.opacity=i<max?1:0; y+=el.offsetHeight+GAP; }); };
   const add=(count)=>{ const n=k%NOTES.length; const el=make(NOTES[n],n); k++; if(count===true) tally(NOTES[n].t);
