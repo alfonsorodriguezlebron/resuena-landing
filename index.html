@@ -50,12 +50,9 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .mc .tx{flex:1;min-width:0}
 .mc .l1{font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mc .l1 b{font-weight:500}
-/* Version B: quote first. Role goes gray, quote goes full ink, older cards dim. */
-body[data-ab="b"] .mc .l1 b{color:#8C8799}
-body[data-ab="b"] .mc .say{color:var(--ink);font-weight:500}
-.ab{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9;display:flex;gap:4px;padding:5px;background:#141414;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
-.ab button{all:unset;cursor:pointer;font-size:12.5px;font-weight:500;color:#BDBDBD;padding:6px 12px;border-radius:6px}
-.ab button.on{background:#fff;color:#141414}
+/* Quote first: role goes gray, quote goes full ink, older cards dim. */
+.mc .l1 b{color:#8C8799}
+.mc .say{color:var(--ink);font-weight:500}
 .mc .l2{font-size:12px;color:#8C8799;margin-top:2px}
 .topic{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#3B3550;background:#fff;border:0;border-radius:6px;padding:5px 9px;white-space:nowrap;background:var(--soft2,#F5F1FA)}
 .topic i{width:7px;height:7px;border-radius:50%;display:block}
@@ -181,29 +178,20 @@ const tally=t=>{ COUNTS[t]++;
   for(const k in COUNTS) document.getElementById("b-"+k).style.flexGrow=COUNTS[k];
   setNum(document.getElementById("n-"+t),COUNTS[t]);
   setNum(document.getElementById("n-all"),COUNTS.pos+COUNTS.neg+COUNTS.neu); };
-/* A/B: everyone sees A. Add ?ab to the URL to get an A | B switcher. */
-document.body.dataset.ab="a";
-if(new URLSearchParams(location.search).has("ab")){
-  const bar=document.createElement("div"); bar.className="ab";
-  const set=v=>{ document.body.dataset.ab=v; [...bar.children].forEach(b=>b.classList.toggle("on",b.textContent.startsWith(v.toUpperCase()))); window.__place&&window.__place(); };
-  [["a","A · Actual"],["b","B · Cita primero"]].forEach(([v,l])=>{ const b=document.createElement("button"); b.textContent=l; b.onclick=()=>set(v); bar.appendChild(b); });
-  document.body.appendChild(bar); set("b");
-}
 const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#3B3B45"/></svg></span>';
 (function(){
   const demo=document.getElementById("demo"); let k=0; const list=[]; const GAP=10;
   const make=(v,n)=>{ const el=document.createElement("div"); el.className="mc "+v.t; const c=PASTEL[n%PASTEL.length]; el.style.setProperty("--bd",c.bd); el.style.setProperty("--bdh",c.bdh); el.style.setProperty("--soft2",c.soft);
     el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.img?`<img src="${v.img}" alt="">`:v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> <span class="say">${v.say}</span></div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}</div></div>${PLAY}`; return el; };
   const fits=()=>{ let y=0,c=0; for(const el of list){ y+=el.offsetHeight; if(y>demo.clientHeight-4) break; c++; y+=GAP; } return Math.max(1,c); };
-  const place=()=>{ const max=fits(); let y=0; list.forEach((el,i)=>{ const t=i<max?`translateY(${y}px)`:`translateY(${demo.clientHeight}px)`; el.style.setProperty("--t",t); el.style.transform=t; el.style.opacity=i<max?(document.body.dataset.ab==="b"&&i>0?.45:1):0; y+=el.offsetHeight+GAP; }); };
+  const place=()=>{ const max=fits(); let y=0; list.forEach((el,i)=>{ const t=i<max?`translateY(${y}px)`:`translateY(${demo.clientHeight}px)`; el.style.setProperty("--t",t); el.style.transform=t; el.style.opacity=i<max?(i>0?.45:1):0; y+=el.offsetHeight+GAP; }); };
   const add=(count)=>{ const n=k%NOTES.length; const el=make(NOTES[n],n); k++; if(count===true) tally(NOTES[n].t);
     el.style.transition="none"; el.style.opacity=0; el.style.transform="translateY(-14px)"; demo.appendChild(el); list.unshift(el);
     el.offsetHeight; el.style.transition=""; place();
     while(list.length>4){ const gone=list.pop(); setTimeout(()=>gone.remove(),600); } };
   add(); setTimeout(add,700); setTimeout(add,1400);
-  // A: new card every 3.6s. B: every 5.5s so each quote can be read.
-  if(!reduce) (function loop(){ setTimeout(()=>{ add(true); loop(); }, document.body.dataset.ab==="b"?5500:3600); })();
-  window.__place=place;
+  // New card every 4.5s so each quote can be read.
+  if(!reduce) setInterval(()=>add(true),4500);
   addEventListener("resize",place);
 })();
 
