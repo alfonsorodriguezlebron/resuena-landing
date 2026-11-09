@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
-:root{--pri:#141414;--pri-h:#2A2A2A;--pri-ring:#DCCEF5;--ink:#141414;--muted:#525252;--soft:#7A7A7A;--line:#EBEBEB;--blue:#2F5BD3;--bluetint:#EEF2FD;--red:#D9443F}
+:root{--pri:#4A1F5C;--pri-h:#5B2870;--pri-ring:#E6D3EE;--ink:#141414;--muted:#525252;--soft:#7A7A7A;--line:#EBEBEB;--blue:#2F5BD3;--bluetint:#EEF2FD;--red:#D9443F}
 *{box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 @media (max-height:620px),(max-width:560px){html,body{overflow:auto}}
@@ -31,18 +31,21 @@ main{flex:1;width:100%;max-width:720px;display:flex;flex-direction:column;align-
 @keyframes pulse{to{box-shadow:0 0 0 8px rgba(47,91,211,0)}}
 
 h1{margin:0;font-family:Newsreader,Georgia,serif;font-size:clamp(44px,min(7.6vw,9.2vh),84px);line-height:1.02;letter-spacing:-.025em;font-weight:400}
+
+.eyebrow{font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--pri);margin-bottom:22px;display:inline-flex;align-items:center;gap:10px}
+.eyebrow i{width:18px;height:1.5px;background:var(--pri);opacity:.5;display:block}
 h1 em{font-style:normal;color:inherit;white-space:nowrap}
 h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .lead{margin:22px auto 0;max-width:600px;font-size:16.5px;line-height:1.75;color:var(--ink);font-weight:500}
 .lead b{color:var(--ink);font-weight:500}
 .chip{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:999px;padding:0 10px;font:inherit;color:inherit;white-space:nowrap;line-height:1.6;background:#F1F1F3}
-.lead .chip:nth-of-type(1){background:#EEEBF5}.lead .chip:nth-of-type(2){background:#E9EEF6}.lead .chip:nth-of-type(3){background:#E8F1EC}.lead .chip:nth-of-type(4){background:#F5EFE8}.lead .chip:nth-of-type(5){background:#F4ECF0}
+.lead .chip{background:#F5EEF7;color:#3A1848}.lead .chip svg{color:#7A3E92}
 .chip svg{flex:none}
 
 /* who-talked-about-you: up to 3 white cards, solid border, topic tag */
 .demo{position:relative;width:100%;max-width:620px;height:226px;margin:30px auto 0;text-align:left;overflow:hidden}
 .mc{position:absolute;left:4px;right:4px;top:4px;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid #EEEEF1;border-radius:14px;padding:11px 14px;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,border-color .2s ease;cursor:default}
-.mc:hover{border-color:var(--bd,#E3D7EF);transform:var(--t) translateY(-2px)}
+.mc:hover{border-color:#E3CDEB;transform:var(--t) translateY(-2px)}
 .mc .a{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3B45;background:#F4F4F5!important}
 .mc .a .sd{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;border:2px solid #fff}
 .mc .a.anon{background:#fff!important;border:2px dashed #DCD2E8;color:#8C83A0}
@@ -71,7 +74,8 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 @media (max-height:780px) and (min-width:561px){
   .top{padding:14px 0}
   main{padding:8px 0 16px}
-  h1{margin-top:16px}
+  h1{margin-top:0}
+  .eyebrow{margin-bottom:14px}
   .lead{margin-top:14px;line-height:1.65}
   .demo{margin-top:28px;height:168px}
   form{margin-top:22px}
@@ -90,10 +94,6 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 }
 @media (prefers-reduced-motion:reduce){.dot{animation:none}}
 
-.pk{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #E6E6E6;border-radius:12px;padding:6px 8px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);font-size:12px}
-.pk span{color:#999;padding:0 4px}
-.pk a{width:22px;height:22px;border-radius:7px;cursor:pointer;outline-offset:2px}
-.pk a.on{outline:2px solid #141414}
 </style>
 </head>
 <body>
@@ -107,6 +107,7 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 
   <main>
 
+    <div class="eyebrow"><i></i>Monitoreo de medios · Puerto Rico<i></i></div>
     <h1>Entérate <span class="glyph" aria-hidden="true"><svg height="0.36em" viewBox="24 24 896 676"><path fill="var(--pri)" style="fill:var(--pri)" fill-rule="evenodd" d="M788.4 679.7C802.9 665.3 811.5 655.2 833.8 626.7C840.6 618.0 848.6 605.7 854.0 595.5C856.4 591.1 859.5 585.5 861.0 583.0C870.2 568.0 884.7 535.3 893.7 509.5C900.0 491.2 907.5 462.9 910.9 444.0C912.1 437.7 913.5 430.2 914.0 427.5C914.5 424.8 915.4 418.2 916.0 413.0C916.6 407.8 917.6 400.1 918.2 396.0C918.8 391.9 919.2 376.4 919.2 361.5C919.0 314.0 913.1 268.4 902.5 234.0C892.3 200.6 888.3 190.1 875.9 164.1C868.0 147.6 848.9 115.3 840.3 103.9C818.4 74.8 789.2 46.9 761.2 28.3C753.4 23.1 752.8 22.9 750.7 24.3C746.9 26.9 704.5 68.3 704.2 69.8C704.0 70.6 706.8 74.0 710.6 77.3C722.2 87.9 749.4 117.5 758.8 130.0C769.0 143.4 776.1 155.0 784.8 172.5C809.1 221.4 819.9 260.5 827.0 325.0C830.1 353.8 826.0 401.7 816.5 446.5C812.3 465.9 811.3 470.4 809.5 476.0C802.7 497.7 799.4 507.3 794.9 517.7C792.1 524.2 787.2 535.6 784.1 543.0C776.4 561.0 775.8 562.0 760.2 587.5C745.2 611.8 738.5 621.3 722.7 640.4C716.8 647.4 712.0 653.8 712.0 654.4C712.0 657.1 744.7 684.6 759.9 694.8C766.0 698.8 766.3 698.9 769.1 697.5C770.7 696.6 779.4 688.6 788.4 679.7Z M647.9 592.5C676.0 566.5 705.1 521.2 718.3 483.0C727.5 456.4 734.0 430.1 737.0 407.0C738.6 394.9 738.9 387.7 738.6 363.0C738.2 326.7 736.5 311.2 729.8 281.5C724.9 259.8 713.7 231.2 703.7 215.0C694.7 200.4 672.6 175.6 658.7 164.5C649.0 156.7 634.9 147.0 633.2 147.0C630.9 147.0 588.1 192.0 588.0 194.4C588.0 194.9 593.5 201.0 600.3 207.9C613.4 221.3 620.8 230.6 631.3 246.5C647.1 270.6 655.1 292.6 661.1 327.9C663.6 342.5 664.6 368.5 663.1 380.5C657.6 425.7 648.6 456.8 630.5 492.6C623.5 506.4 615.2 519.2 597.1 544.0C592.1 550.9 588.0 557.0 588.0 557.7C588.0 561.2 636.2 597.7 641.2 598.0C641.6 598.0 644.6 595.5 647.9 592.5Z M250.6 540.5C251.8 538.9 252.0 525.4 252.0 449.1C251.9 391.9 251.6 359.0 250.9 357.9C250.0 356.1 247.6 356.0 200.0 356.0C172.6 356.0 149.5 355.7 148.6 355.4C146.5 354.6 146.6 351.9 149.0 342.6C153.1 326.4 165.5 302.7 177.8 287.7C193.9 268.0 220.3 250.0 244.0 242.4C248.7 240.9 253.1 239.3 253.8 238.7C254.7 238.0 255.0 229.3 255.0 201.4L255.0 165.0L252.8 163.6C248.8 161.1 223.3 165.3 207.5 170.9C205.8 171.5 200.4 173.3 195.5 175.0C170.1 183.3 160.1 188.1 139.0 201.8C100.0 227.0 63.8 270.7 42.9 317.9C25.4 357.1 22.7 380.9 23.2 485.8C23.5 533.6 23.7 541.2 25.0 542.0C25.9 542.7 67.4 542.9 137.8 542.8C247.3 542.5 249.2 542.5 250.6 540.5Z M504.8 541.2L507.0 539.9L507.0 449.2C507.0 379.9 506.7 358.1 505.8 357.2C504.9 356.3 493.2 356.0 459.5 356.0C411.9 356.0 412.0 356.0 412.0 351.4C412.0 348.1 416.5 332.2 419.2 326.0C430.1 300.8 443.5 282.4 462.9 265.8C474.6 255.9 483.6 250.4 498.9 243.9C506.5 240.7 509.4 238.9 510.1 237.2C511.1 234.5 511.3 198.5 510.3 178.6C509.8 167.6 509.4 164.7 508.1 164.1C505.0 162.4 484.2 167.1 465.0 173.7C450.0 178.9 422.6 192.4 411.1 200.4C401.3 207.1 381.5 224.5 371.4 235.3C349.7 258.3 337.4 277.1 322.1 310.6C313.0 330.7 309.5 340.3 305.6 356.0C297.0 390.8 294.2 417.8 293.6 470.0C293.1 515.7 293.9 540.7 296.0 542.1C298.4 543.7 501.9 542.8 504.8 541.2Z"/></svg></span><em>antes que nadie.</em></h1>
 
     <p class="lead">
@@ -183,16 +184,7 @@ document.getElementById("signup").addEventListener("submit", async e=>{
 
 
 
-/* primary color switcher (temporary) */
-(function(){
-  const P={1:["Negro","#141414","#2A2A2A","#DCDCE2"],2:["Índigo profundo","#2D2A6E","#3A3687","#D3D1F0"],3:["Violeta eléctrico","#5B3FE0","#4F33D1","#DCD2FB"],4:["Ultramar","#1F3FD1","#1834B8","#CFD9FA"],5:["Berenjena","#4A1F5C","#5B2870","#E6D3EE"]};
-  const r=document.documentElement.style;
-  const set=n=>{ const c=P[n]; r.setProperty("--pri",c[1]); r.setProperty("--pri-h",c[2]); r.setProperty("--pri-ring",c[3]);
-    document.querySelectorAll(".pk a").forEach(a=>a.classList.toggle("on",a.dataset.n==n)); try{history.replaceState(null,"","?color="+n)}catch(_){} };
-  document.body.insertAdjacentHTML("beforeend",`<div class="pk"><span>Primario</span>${Object.keys(P).map(n=>`<a data-n="${n}" title="${P[n][0]}" style="background:${P[n][1]}"></a>`).join("")}</div>`);
-  document.querySelectorAll(".pk a").forEach(a=>a.addEventListener("click",()=>set(+a.dataset.n)));
-  set(+(new URLSearchParams(location.search).get("color"))||1);
-})();
+
 </script>
 </body>
 </html>
