@@ -99,12 +99,12 @@ body.look2 .demo{overflow:visible}
 body.look2 .demo::before{content:"";position:absolute;inset:-18px -22px;background:#EEE7F8;border-radius:22px;z-index:0}
 body.look2 .mc{z-index:1;border-color:#fff!important}
 /* 3 · pastel media tags */
-body.look3 .chip{border:0;font-weight:500}
-body.look3 .chip:nth-of-type(1){background:#EEE7F8}
-body.look3 .chip:nth-of-type(2){background:#E3EEFC}
-body.look3 .chip:nth-of-type(3){background:#E2F3E9}
-body.look3 .chip:nth-of-type(4){background:#FDEBDD}
-body.look3 .chip:nth-of-type(5){background:#FBE4EF}
+body.look3 .chip,body.look6 .chip,body.look7 .chip{border:0;font-weight:500}
+body.look3 .chip:nth-of-type(1),body.look6 .chip:nth-of-type(1),body.look7 .chip:nth-of-type(1){background:#EEE7F8}
+body.look3 .chip:nth-of-type(2),body.look6 .chip:nth-of-type(2),body.look7 .chip:nth-of-type(2){background:#E3EEFC}
+body.look3 .chip:nth-of-type(3),body.look6 .chip:nth-of-type(3),body.look7 .chip:nth-of-type(3){background:#E2F3E9}
+body.look3 .chip:nth-of-type(4),body.look6 .chip:nth-of-type(4),body.look7 .chip:nth-of-type(4){background:#FDEBDD}
+body.look3 .chip:nth-of-type(5),body.look6 .chip:nth-of-type(5),body.look7 .chip:nth-of-type(5){background:#FBE4EF}
 /* 4 · highlighter on the headline + pastel tags */
 body.look4 h1 em{background:#E4D9F7;border-radius:10px;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 body.look4 .chip{border:0;background:#F1ECF9}
@@ -117,6 +117,20 @@ body.look5 input{background:#1E1B27;border-color:#34303F;color:#fff;box-shadow:n
 body.look5 button{background:#F4F2F8;color:#15131C;border-color:#fff;border-bottom-color:#BDB6CC}
 body.look5 .mc{color:#141414}
 body.look5 button kbd{color:#6B6680;border-color:#C9C3D6}
+/* 6 · soft lilac accents (white page) */
+body.look6 h1 svg path,body.look6 .logo svg path{fill:#8B6CF0}
+body.look6 button{background:#EDE6FB;color:#2E2160;border-color:#D9CCF6;border-bottom-color:#C4B2F0}
+body.look6 button:hover{background:#E4DAF9}
+body.look6 button kbd{color:#7C5CE0;border-color:#CDBDF2}
+body.look6 input:focus{outline-color:#8B6CF0}
+body.look6 .mc{--bd:#E3D8F8!important;--bdh:#CBB8F2!important}
+/* 7 · deep lilac accents (white page) */
+body.look7 h1 svg path,body.look7 .logo svg path{fill:#6D4AE0}
+body.look7 button{background:#6D4AE0;color:#fff;border-color:#5636C8;border-bottom-color:#3F249E}
+body.look7 button:hover{background:#6140D6}
+body.look7 button kbd{color:#E5DCFF;border-color:#9C84EE}
+body.look7 input:focus{outline-color:#6D4AE0}
+body.look7 .mc{--bd:#E3D8F8!important;--bdh:#CBB8F2!important}
 .lk{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid #E6E6E6;border-radius:10px;padding:4px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);font-size:12px;color:#141414}
 .lk span{color:#999;padding:0 6px}
 .lk a{display:grid;place-items:center;min-width:26px;height:26px;border-radius:7px;cursor:pointer}
@@ -210,7 +224,7 @@ document.getElementById("signup").addEventListener("submit", async e=>{
 
 /* color looks switcher (temporary) */
 (function(){
-  const N={0:"Actual",1:"Fondo lila",2:"Panel lila",3:"Etiquetas pastel",4:"Resaltador",5:"Oscuro"};
+  const N={0:"Actual",1:"Fondo lila",2:"Panel lila",3:"Etiquetas pastel",4:"Resaltador",5:"Oscuro",6:"Acentos lila suaves",7:"Acentos lila fuertes"};
   const set=n=>{ document.body.className=document.body.className.replace(/look\d/g,"").trim(); if(n) document.body.classList.add("look"+n);
     document.querySelectorAll(".lk a").forEach(a=>a.classList.toggle("on",a.dataset.n==n)); try{history.replaceState(null,"","?look="+n)}catch(_){} };
   document.body.insertAdjacentHTML("beforeend",`<div class="lk"><span>Color</span>${Object.keys(N).map(n=>`<a data-n="${n}" title="${N[n]}">${n==0?"—":n}</a>`).join("")}</div>`);
