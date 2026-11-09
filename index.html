@@ -164,24 +164,25 @@ const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><pat
 })();
 
 /* ============================================================
-   SIGNUP: set FORM_ENDPOINT to a URL that accepts a JSON POST
-   (Supabase edge function, Formspree, etc.). Until then it
-   opens an email draft.
+   SIGNUP: each signup is emailed to alfonso@resuenapr.com via
+   FormSubmit (first submission sends an activation email that
+   must be clicked once).
    ============================================================ */
-const FORM_ENDPOINT = "";
-const FALLBACK_EMAIL = "hola@resuenapr.com";
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/alfonso@resuenapr.com";
 document.getElementById("signup").addEventListener("submit", async e=>{
   e.preventDefault();
-  const input=e.target.correo;
+  const f=e.target, input=f.correo, btn=f.querySelector("button");
   if(!input.value || !input.checkValidity()){ input.focus(); return; }
-  if(FORM_ENDPOINT){ try{ await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:input.value,source:"landing"})}); }catch(_){} }
-  else { location.href=`mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent("Piloto Resuena")}&body=${encodeURIComponent("Quiero unirme al piloto. Mi correo: "+input.value)}`; }
-  e.target.style.display="none"; document.getElementById("ok").style.display="block";
+  btn.disabled=true; btn.style.opacity=.7;
+  let ok=false;
+  try{
+    const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({correo:input.value,_subject:"Nuevo registro en resuenapr.com",_template:"table",_captcha:"false",pagina:location.href})});
+    ok=r.ok;
+  }catch(_){}
+  if(ok){ f.style.display="none"; document.getElementById("ok").style.display="block"; }
+  else { btn.disabled=false; btn.style.opacity=1; location.href=`mailto:alfonso@resuenapr.com?subject=${encodeURIComponent("Piloto Resuena")}&body=${encodeURIComponent("Quiero unirme al piloto. Mi correo: "+input.value)}`; }
 });
-
-
-
-
 </script>
 </body>
 </html>
