@@ -38,8 +38,8 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 9px;font-weight:500;color:var(--ink);white-space:nowrap;line-height:1.6}
 .chip svg{flex:none}
 
-/* demo animations (5 variants, switch with ?anim=1..5) */
-.demo{position:relative;width:100%;max-width:540px;height:200px;margin:34px auto 0;text-align:left}
+/* who-talked-about-you notifications */
+.demo{position:relative;width:100%;max-width:540px;height:130px;margin:44px auto 0;text-align:left}
 .mc{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
 .mc .a{width:34px;height:34px;border-radius:50%;background:#F4F4F4;display:grid;place-items:center;font-size:11.5px;font-weight:500;flex:none}
 .mc .a.anon{background:#fff;border:1.5px dashed #D4D4D4;color:var(--soft)}
@@ -50,49 +50,8 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .chip-t{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px;white-space:nowrap}
 .chip-t i{width:7px;height:7px;border-radius:50%;display:block}
 .pl{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);display:grid;place-items:center;flex:none}
-/* v1 card */
-.v1 .mc{position:absolute;left:0;right:0;top:40px;transition:opacity .45s ease,transform .45s ease}
-.v1 .mc.out{opacity:0;transform:translateY(-8px)}
-.v1 .mc.in{opacity:0;transform:translateY(8px)}
 /* v2 stack */
 .v2 .mc{position:absolute;left:0;right:0;top:8px;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s}
-/* v3 transcript */
-.v3 .cap{font-size:12.5px;color:var(--soft);text-align:center;margin-bottom:10px}
-.v3 .tr{display:flex;gap:14px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
-.v3 .th{width:92px;height:auto;min-height:92px;align-self:stretch;object-fit:cover;border-radius:8px;background:#F2F2F2;flex:none}
-.v3 .bx{flex:1;min-width:0;padding:2px 4px 2px 0}
-.v3 .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);margin-bottom:6px}
-.v3 .meta .lv{display:inline-flex;align-items:center;gap:6px}.v3 .meta .lv i{width:6px;height:6px;border-radius:50%;background:var(--red);display:block}
-.v3 .q{font-family:Newsreader,Georgia,serif;font-size:18px;line-height:1.32;color:var(--ink);min-height:48px}
-.v3 .q w{opacity:0;transition:opacity .25s}.v3 .q w.on{opacity:1}
-.v3 .q mark{background:var(--bluetint);color:var(--blue);border-radius:4px;padding:0 3px}
-.v3 .ft{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px;opacity:0;transition:opacity .4s}.v3 .ft.on{opacity:1}
-.v3 .ft .who{font-size:13px;color:var(--muted)}
-/* v4 log */
-.v4 .lg{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
-.v4 .hd{display:flex;justify-content:space-between;font-size:11.5px;color:var(--soft);padding:8px 14px;border-bottom:1px solid var(--line);background:#FBFBFB}
-.v4 .rw{display:grid;grid-template-columns:60px 112px minmax(0,1fr) 12px;gap:10px;align-items:center;padding:9px 14px;border-bottom:1px solid #F2F2F2;font-size:13px;transition:background 1.2s}
-.v4 .rw:last-child{border-bottom:0}
-.v4 .rw .t{font-family:"Geist Mono",ui-monospace,monospace;font-size:11.5px;color:var(--soft)}
-.v4 .rw .o{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.v4 .rw .s{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.v4 .rw .d{width:8px;height:8px;border-radius:50%}
-.v4 .rw.new{background:#F5F8FF;animation:drop .45s ease}
-@keyframes drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-/* v5 ticker */
-.v5{display:flex;flex-direction:column;justify-content:center;gap:12px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);max-width:760px}
-.v5 .row{display:flex;gap:10px;width:max-content;animation:tick 70s linear infinite}
-.v5 .row.r2{animation-duration:90s;animation-direction:reverse}
-.v5 .tk{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;white-space:nowrap}
-.v5 .tk b{font-weight:500}.v5 .tk span{color:var(--soft)}
-.v5 .tk i{width:7px;height:7px;border-radius:50%;display:block}
-@keyframes tick{to{transform:translateX(-50%)}}
-/* switcher (temporary) */
-.sw{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);font-size:12px}
-.sw span{color:var(--soft);padding:0 6px}
-.sw a{display:grid;place-items:center;min-width:26px;height:26px;border-radius:7px;color:var(--ink);text-decoration:none;cursor:pointer}
-.sw a.on{background:var(--ink);color:#fff}
-@media (prefers-reduced-motion:reduce){.v5 .row{animation:none}}
 
 /* signup */
 form{display:flex;gap:8px;margin:30px auto 0;width:100%;max-width:440px}
@@ -120,10 +79,12 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
   .cov{padding:14px 0 16px}
 }
 @media (max-width:560px){
+  .mc .l1{white-space:normal}
+  .mc .pl{display:none}
+
   .top .small{display:none}
   form{flex-direction:column}
   .demo{margin-top:28px;height:190px}
-  .v4 .rw{grid-template-columns:52px minmax(0,1fr) 12px}.v4 .rw .o{display:none}
   .lead{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){.dot{animation:none}}
@@ -167,84 +128,29 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 
 <script>
 
-/* ============================================================
-   VOICES: who talks about you (illustrative roles, no real names)
-   x/y are % of the box.
-   ============================================================ */
-const VOICES = [
-  {i:"LO", c:"#3B5BDB", x:8,  y:60, t:"neg", who:"Locutor",            where:"WKAQ 580 · 6:42 a.m.",    say:"te criticó por los apagones", line:"…y lo que dijo <mark>tu nombre</mark> ayer de los apagones, eso no hay quien se lo crea."},
-  {i:"CO", c:"#0C8599", x:26, y:22, t:"pos", who:"Columnista",         where:"El Nuevo Día",            say:"defendió tu propuesta de vivienda", line:"La propuesta de vivienda de <mark>tu nombre</mark> es, honestamente, lo más sensato que se ha presentado."},
-  {i:"",   c:"",        x:44, y:78, t:"neg", who:"Oyente",             where:"NotiUno 630 · llamada",   say:"llamó para quejarse de ti", anon:true, line:"Mire, yo llamo porque <mark>tu nombre</mark> prometió arreglar la carretera y nada."},
-  {i:"AN", c:"#E8590C", x:60, y:28, t:"neu", who:"Analista",           where:"Telemundo PR · noticiero", say:"habló de tu presupuesto", line:"El presupuesto que presentó <mark>tu nombre</mark> llega mañana a la Cámara."},
-  {i:"PO", c:"#7048E8", x:76, y:72, t:"pos", who:"Podcast de política",where:"YouTube · próximamente",   say:"te elogió en el episodio de hoy", line:"Hay que darle crédito a <mark>tu nombre</mark>, esta semana lo hizo bien."},
-  {i:"SE", c:"#2F9E44", x:93, y:30, t:"neu", who:"Comunicado",         where:"Senado de Puerto Rico",   say:"te nombró en un comunicado", line:"El Senado anunció que <mark>tu nombre</mark> comparecerá a la vista pública del jueves."},
-];
-/* Real quotes from Resuena's monitoring, shown by role and outlet only (no names, no audio). */
-const QUOTES=[
-  {text:"“Nosotros estamos defendiendo la posición de la administración…”", hl:"defendiendo", role:"Líder política", outlet:"Radio Isla", time:"7:38 a.m.", tag:"Defensa", c:"#2F9E6B", img:"img/q1.jpg"},
-  {text:"“Y ese control en mi libro se llama censura.”", hl:"censura", role:"Locutora", outlet:"WKAQ 580", time:"3:36 p.m.", tag:"Crítica", c:"#D9443F", img:"img/q3.jpg"},
-  {text:"“Aquí todos los días hay una agenda organizada y estructurada desde adentro, además de los de afuera…”", hl:"desde adentro", role:"Comentarista político", outlet:"Radio Isla", time:"3:10 p.m.", tag:"Defensa", c:"#2F9E6B", img:"img/q2.jpg"},
-  {text:"“Estamos ya en noviembre y no se ha emitido el pago ni de un solo centavo a los docentes…”", hl:"centavo", role:"Líder sindical", outlet:"NotiUno 630", time:"6:42 a.m.", tag:"Reclamo", c:"#D9443F", img:"img/q4.jpg"},
-  {text:"“Así que es autoinfligido…”", hl:"autoinfligido", role:"Legislador de su partido", outlet:"NotiUno 630", time:"9:11 a.m.", tag:"Crítica interna", c:"#D9443F", img:"img/q5.jpg"},
-  {text:"“Hay gente que está trabajando con ella, que no están trabajando bien, y entonces la están haciendo quedar mal.”", hl:"quedar mal", role:"Comentarista", outlet:"Radio", time:"", tag:"Defensa", c:"#2F9E6B", img:"img/q6.jpg"},
-];
-const TONE = {pos:["Positivo","#2F9E6B"], neg:["Negativo","#D9443F"], neu:["Neutral","#A3A3A3"]};
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const demo=document.getElementById("demo");
+/* Notifications: who talked about you. Based on real monitored mentions, shown by role only (no names, no audio). */
+const NOTES=[
+  {i:"",   anon:true, who:"Oyente",                   say:"llamó para quejarse de ti",               where:"NotiUno 630 · llamada",   t:"neg"},
+  {i:"CP", who:"Comentarista político",               say:"te defendió de ataques desde adentro",    where:"Radio Isla · 3:10 p.m.",  t:"pos"},
+  {i:"LO", who:"Locutora",                            say:"te criticó por controlar la información", where:"WKAQ 580 · 3:36 p.m.",    t:"neg"},
+  {i:"LP", who:"Líder política",                      say:"defendió tu protocolo en las escuelas",   where:"Radio Isla · 7:38 a.m.",  t:"pos"},
+  {i:"LS", who:"Líder sindical",                      say:"reclamó el pago a los maestros",          where:"NotiUno 630 · 6:42 a.m.", t:"neg"},
+  {i:"LE", who:"Legislador de tu partido",            say:"dijo que la controversia es autoinfligida",where:"NotiUno 630 · 9:11 a.m.", t:"neg"},
+  {i:"CO", who:"Comentarista",                        say:"culpó a tu equipo, no a ti",              where:"Radio",                   t:"neu"},
+];
+const TONE={pos:["Positivo","#2F9E6B"],neg:["Negativo","#D9443F"],neu:["Mixto","#A3A3A3"]};
 const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#141414"/></svg></span>';
-const av=v=>`<span class="a${v.anon?" anon":""}">${v.anon?"?":v.i}</span>`;
-const tone=v=>`<span class="chip-t"><i style="background:${TONE[v.t][1]}"></i>${TONE[v.t][0]}</span>`;
-const card=v=>`<div class="mc">${av(v)}<div class="tx"><div class="l1"><b>${v.who}</b> ${v.say}</div><div class="l2">${v.where}</div></div>${tone(v)}${PLAY}</div>`;
-const TIMES=["6:42","7:15","8:03","9:30","12:01","1:47","3:12","5:58"];
-let timer=null, k=0;
-const VARIANTS={
-  1(){ // single card that swaps
-    demo.className="demo v1"; demo.innerHTML=card(VOICES[0]); k=1;
-    return ()=>{ const old=demo.firstElementChild; old.classList.add("out");
-      const nw=document.createElement("div"); nw.innerHTML=card(VOICES[k++%VOICES.length]); const el=nw.firstElementChild; el.classList.add("in"); demo.appendChild(el);
-      requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.remove("in"))); setTimeout(()=>old.remove(),500); };
-  },
-  2(){ // notification stack
-    demo.className="demo v2"; demo.innerHTML=""; k=0; const stack=[];
-    const lay=()=>stack.forEach((el,i)=>{ el.style.zIndex=10-i; el.style.transform=`translateY(${i*14}px) scale(${1-i*.045})`; el.style.opacity=i>2?0:1-i*.28; });
-    const push=()=>{ const w=document.createElement("div"); w.innerHTML=card(VOICES[k++%VOICES.length]); const el=w.firstElementChild;
-      el.style.transform="translateY(-18px)"; el.style.opacity=0; demo.appendChild(el); stack.unshift(el);
-      requestAnimationFrame(()=>requestAnimationFrame(lay)); if(stack.length>4){ const gone=stack.pop(); setTimeout(()=>gone.remove(),500);} };
-    push(); setTimeout(push,250); setTimeout(push,500); return push;
-  },
-  3(){ // transcript with real quotes (roles only), topic image, word by word
-    demo.className="demo v3"; k=0; let wt=[];
-    const show=()=>{ wt.forEach(clearTimeout); wt=[]; const q=QUOTES[k++%QUOTES.length];
-      const words=q.text.split(/\s+/);
-      const hl=q.hl.toLowerCase().split(/\s+/);
-      const html=words.map(w=>{const bare=w.toLowerCase().replace(/[“”".,…]/g,""); return hl.includes(bare)?`<w><mark>${w}</mark></w>`:`<w>${w}</w>`}).join(" ");
-      demo.innerHTML=`<div class="cap">No solo quién te criticó. También quién te defendió.</div><div class="tr"><img class="th" src="${q.img}" alt=""><div class="bx"><div class="meta"><span>${q.outlet}${q.time?" · "+q.time:""}</span><span class="lv"><i></i>transcripción</span></div><div class="q">${html}</div><div class="ft"><span class="who">${q.role}</span><span class="chip-t"><i style="background:${q.c}"></i>${q.tag}</span></div></div></div>`;
-      const ws=[...demo.querySelectorAll("w")]; ws.forEach((w,i)=>wt.push(setTimeout(()=>w.classList.add("on"),reduce?0:90*i)));
-      wt.push(setTimeout(()=>demo.querySelector(".ft").classList.add("on"),reduce?0:90*ws.length+250)); };
-    show(); return show;
-  },
-  4(){ // live log
-    demo.className="demo v4"; k=0;
-    const row=(v,i,isNew)=>`<div class="rw${isNew?" new":""}"><span class="t">${TIMES[i%TIMES.length]}</span><span class="o">${v.where.split(" · ")[0]}</span><span class="s"><b style="font-weight:500">${v.who}</b> ${v.say}</span><span class="d" style="background:${TONE[v.t][1]}"></span></div>`;
-    demo.innerHTML=`<div class="lg"><div class="hd"><span>Menciones · hoy</span><span>en vivo</span></div><div class="bd">${[3,2,1,0].map(i=>row(VOICES[i],i,false)).join("")}</div></div>`; k=4;
-    return ()=>{ const bd=demo.querySelector(".bd"); bd.insertAdjacentHTML("afterbegin",row(VOICES[k%VOICES.length],k,true)); k++; while(bd.children.length>4) bd.lastElementChild.remove(); };
-  },
-  5(){ // slow ticker, two rows
-    demo.className="demo v5";
-    const tk=v=>`<span class="tk"><i style="background:${TONE[v.t][1]}"></i><b>${v.who}</b> ${v.say}<span>· ${v.where.split(" · ")[0]}</span></span>`;
-    const a=VOICES.map(tk).join(""), b=[...VOICES].reverse().map(tk).join("");
-    demo.innerHTML=`<div class="row">${a}${a}</div><div class="row r2">${b}${b}</div>`; return null;
-  },
-};
-const NAMES={1:"Tarjeta",2:"Notificaciones",3:"Transcripción",4:"Registro",5:"Cinta"};
-const SPEED={1:3600,2:3000,3:7000,4:2800};
-function run(n){ clearInterval(timer); const step=VARIANTS[n](); if(step&&!reduce) timer=setInterval(step,SPEED[n]);
-  document.querySelectorAll(".sw a").forEach(a=>a.classList.toggle("on",a.dataset.n==n));
-  try{ history.replaceState(null,"","?anim="+n);}catch(_){} }
-document.body.insertAdjacentHTML("beforeend",`<div class="sw"><span>Animación</span>${Object.keys(NAMES).map(n=>`<a data-n="${n}" title="${NAMES[n]}">${n}</a>`).join("")}</div>`);
-document.querySelectorAll(".sw a").forEach(a=>a.addEventListener("click",()=>run(+a.dataset.n)));
-run(+(new URLSearchParams(location.search).get("anim"))||1);
-
+const card=v=>`<div class="mc"><span class="a${v.anon?" anon":""}">${v.anon?"?":v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> ${v.say}</div><div class="l2">${v.where}</div></div><span class="chip-t"><i style="background:${TONE[v.t][1]}"></i>${TONE[v.t][0]}</span>${PLAY}</div>`;
+(function(){
+  const demo=document.getElementById("demo"); demo.className="demo v2"; let k=0; const stack=[];
+  const lay=()=>stack.forEach((el,i)=>{ el.style.zIndex=10-i; el.style.transform=`translateY(${i*14}px) scale(${1-i*.045})`; el.style.opacity=i>2?0:1-i*.28; });
+  const push=()=>{ const w=document.createElement("div"); w.innerHTML=card(NOTES[k++%NOTES.length]); const el=w.firstElementChild;
+    el.style.transform="translateY(-18px)"; el.style.opacity=0; demo.appendChild(el); stack.unshift(el);
+    requestAnimationFrame(()=>requestAnimationFrame(lay)); if(stack.length>4){ const gone=stack.pop(); setTimeout(()=>gone.remove(),500);} };
+  push(); setTimeout(push,250); setTimeout(push,500);
+  if(!reduce) setInterval(push,3200);
+})();
 
 /* ============================================================
    SIGNUP: set FORM_ENDPOINT to a URL that accepts a JSON POST
