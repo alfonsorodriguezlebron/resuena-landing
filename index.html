@@ -70,7 +70,7 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 /* coverage line */
 .cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;padding:20px 0 26px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
 .cov b{color:var(--ink);font-weight:600}
-.cov .prog{color:var(--blue)}
+.cov .prog{color:var(--soft)}
 
 @media (max-height:780px) and (min-width:561px){
   .top{padding:14px 0}
@@ -133,7 +133,7 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
    ============================================================ */
 const COVERAGE = [["30","emisoras de radio"],["4","canales de TV"],["12","periódicos"],["33","medios digitales"],["5","fuentes de gobierno"]];
 document.getElementById("cov").innerHTML =
-  COVERAGE.map(([n,l])=>`<span><b>${n}</b> ${l}</span>`).join("") + `<span class="prog">● Redes sociales en progreso</span>`;
+  COVERAGE.map(([n,l])=>`<span><b>${n}</b> ${l}</span>`).join("") + `<span class="prog">+ redes pronto</span>`;
 
 /* ============================================================
    VOICES: who talks about you (illustrative roles, no real names)
