@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
-:root{--pri:#7A005D;--pri-h:#63004B;--pri-ring:#EFD3E5;--chip-bg:#F8EDF3;--chip-ink:#4A0039;--card-hover:#EBCFE0;--ink:#141414;--muted:#525252;--soft:#7A7A7A;--line:#EBEBEB;--blue:#2F5BD3;--bluetint:#EEF2FD;--red:#D9443F}
+:root{--pri:#4B5558;--pri-h:#3D4548;--pri-ring:#DEE2E3;--chip-bg:#F1F3F3;--chip-ink:#343A3D;--card-hover:#D8DDDE;--ink:#141414;--muted:#525252;--soft:#7A7A7A;--line:#EBEBEB;--blue:#2F5BD3;--bluetint:#EEF2FD;--red:#D9443F}
 *{box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 @media (max-height:620px),(max-width:560px){html,body{overflow:auto}}
@@ -205,7 +205,7 @@ if(new URLSearchParams(location.search).has("color")){
   .clab span.v{text-align:right;color:#9A9A9A;font-variant-numeric:tabular-nums}`;
   document.head.appendChild(st);
   const hex=(h,s,l)=>{ s/=100; l/=100; const f=n=>{ const k=(n+h/30)%12, c=l-s*Math.min(l,1-l)*Math.max(-1,Math.min(k-3,9-k,1)); return Math.round(c*255).toString(16).padStart(2,"0"); }; return "#"+f(0)+f(8)+f(4); };
-  const P=[["Actual",314,100,24],["Azul",222,72,38],["Verde",160,80,24],["Tinta",230,30,18],["Rojo",355,78,40],["Ámbar",28,90,38]];
+  const P=[["Pizarra",194,8,32],["Morado",314,100,24],["Azul",222,72,38],["Verde",160,80,24],["Tinta",230,30,18],["Rojo",355,78,40],["Ámbar",28,90,38]];
   const box=document.createElement("div"); box.className="clab";
   box.innerHTML=`<div class="top"><span class="sw"></span><code id="cx"></code><button class="cp" id="cc">Copiar</button><span class="pre">${P.map((p,i)=>`<i data-i="${i}" title="${p[0]}" style="background:${hex(p[1],p[2],p[3])}"></i>`).join("")}</span></div>
     <span>Tono</span><input type="range" class="hue" id="ch" min="0" max="360"><span class="v" id="vh"></span>
