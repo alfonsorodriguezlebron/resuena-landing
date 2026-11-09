@@ -39,7 +39,7 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .chip svg{flex:none}
 
 /* demo animations (5 variants, switch with ?anim=1..5) */
-.demo{position:relative;width:100%;max-width:520px;height:176px;margin:40px auto 0;text-align:left}
+.demo{position:relative;width:100%;max-width:540px;height:200px;margin:34px auto 0;text-align:left}
 .mc{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
 .mc .a{width:34px;height:34px;border-radius:50%;background:#F4F4F4;display:grid;place-items:center;font-size:11.5px;font-weight:500;flex:none}
 .mc .a.anon{background:#fff;border:1.5px dashed #D4D4D4;color:var(--soft)}
@@ -57,13 +57,17 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 /* v2 stack */
 .v2 .mc{position:absolute;left:0;right:0;top:8px;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s}
 /* v3 transcript */
-.v3 .tr{border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 18px;box-shadow:0 12px 28px -18px rgba(0,0,0,.25);margin-top:18px}
-.v3 .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);margin-bottom:10px}
+.v3 .cap{font-size:12.5px;color:var(--soft);text-align:center;margin-bottom:10px}
+.v3 .tr{display:flex;gap:14px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
+.v3 .th{width:92px;height:auto;min-height:92px;align-self:stretch;object-fit:cover;border-radius:8px;background:#F2F2F2;flex:none}
+.v3 .bx{flex:1;min-width:0;padding:2px 4px 2px 0}
+.v3 .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);margin-bottom:6px}
 .v3 .meta .lv{display:inline-flex;align-items:center;gap:6px}.v3 .meta .lv i{width:6px;height:6px;border-radius:50%;background:var(--red);display:block}
-.v3 .q{font-family:Newsreader,Georgia,serif;font-size:21px;line-height:1.35;color:var(--ink);min-height:57px}
+.v3 .q{font-family:Newsreader,Georgia,serif;font-size:18px;line-height:1.32;color:var(--ink);min-height:48px}
 .v3 .q w{opacity:0;transition:opacity .25s}.v3 .q w.on{opacity:1}
-.v3 .q mark{background:var(--bluetint);color:var(--blue);border-radius:4px;padding:0 4px}
-.v3 .ft{display:flex;gap:8px;align-items:center;margin-top:10px;opacity:0;transition:opacity .4s}.v3 .ft.on{opacity:1}
+.v3 .q mark{background:var(--bluetint);color:var(--blue);border-radius:4px;padding:0 3px}
+.v3 .ft{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px;opacity:0;transition:opacity .4s}.v3 .ft.on{opacity:1}
+.v3 .ft .who{font-size:13px;color:var(--muted)}
 /* v4 log */
 .v4 .lg{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 12px 28px -18px rgba(0,0,0,.25)}
 .v4 .hd{display:flex;justify-content:space-between;font-size:11.5px;color:var(--soft);padding:8px 14px;border-bottom:1px solid var(--line);background:#FBFBFB}
@@ -175,6 +179,15 @@ const VOICES = [
   {i:"PO", c:"#7048E8", x:76, y:72, t:"pos", who:"Podcast de política",where:"YouTube · próximamente",   say:"te elogió en el episodio de hoy", line:"Hay que darle crédito a <mark>tu nombre</mark>, esta semana lo hizo bien."},
   {i:"SE", c:"#2F9E44", x:93, y:30, t:"neu", who:"Comunicado",         where:"Senado de Puerto Rico",   say:"te nombró en un comunicado", line:"El Senado anunció que <mark>tu nombre</mark> comparecerá a la vista pública del jueves."},
 ];
+/* Real quotes from Resuena's monitoring, shown by role and outlet only (no names, no audio). */
+const QUOTES=[
+  {text:"“Nosotros estamos defendiendo la posición de la administración…”", hl:"defendiendo", role:"Líder política", outlet:"Radio Isla", time:"7:38 a.m.", tag:"Defensa", c:"#2F9E6B", img:"img/q1.jpg"},
+  {text:"“Y ese control en mi libro se llama censura.”", hl:"censura", role:"Locutora", outlet:"WKAQ 580", time:"3:36 p.m.", tag:"Crítica", c:"#D9443F", img:"img/q3.jpg"},
+  {text:"“Aquí todos los días hay una agenda organizada y estructurada desde adentro, además de los de afuera…”", hl:"desde adentro", role:"Comentarista político", outlet:"Radio Isla", time:"3:10 p.m.", tag:"Defensa", c:"#2F9E6B", img:"img/q2.jpg"},
+  {text:"“Estamos ya en noviembre y no se ha emitido el pago ni de un solo centavo a los docentes…”", hl:"centavo", role:"Líder sindical", outlet:"NotiUno 630", time:"6:42 a.m.", tag:"Reclamo", c:"#D9443F", img:"img/q4.jpg"},
+  {text:"“Así que es autoinfligido…”", hl:"autoinfligido", role:"Legislador de su partido", outlet:"NotiUno 630", time:"9:11 a.m.", tag:"Crítica interna", c:"#D9443F", img:"img/q5.jpg"},
+  {text:"“Hay gente que está trabajando con ella, que no están trabajando bien, y entonces la están haciendo quedar mal.”", hl:"quedar mal", role:"Comentarista", outlet:"Radio", time:"", tag:"Defensa", c:"#2F9E6B", img:"img/q6.jpg"},
+];
 const TONE = {pos:["Positivo","#2F9E6B"], neg:["Negativo","#D9443F"], neu:["Neutral","#A3A3A3"]};
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const demo=document.getElementById("demo");
@@ -199,14 +212,15 @@ const VARIANTS={
       requestAnimationFrame(()=>requestAnimationFrame(lay)); if(stack.length>4){ const gone=stack.pop(); setTimeout(()=>gone.remove(),500);} };
     push(); setTimeout(push,250); setTimeout(push,500); return push;
   },
-  3(){ // transcript, word by word, then the tag
+  3(){ // transcript with real quotes (roles only), topic image, word by word
     demo.className="demo v3"; k=0; let wt=[];
-    const show=()=>{ wt.forEach(clearTimeout); wt=[]; const v=VOICES[k++%VOICES.length];
-      const words=v.line.replace(/<mark>(.*?)<\/mark>/,"\u0000$1\u0000").split(/(\u0000[^\u0000]*\u0000|\s+)/).filter(x=>x&&x.trim());
-      const html=words.map(x=>x.startsWith("\u0000")?`<w><mark>${x.slice(1,-1)}</mark></w>`:`<w>${x}</w>`).join(" ");
-      demo.innerHTML=`<div class="tr"><div class="meta"><span>${v.where}</span><span class="lv"><i></i>transcripción</span></div><div class="q">${html}</div><div class="ft">${av(v)}<span style="font-size:13px"><b style="font-weight:500">${v.who}</b> ${v.say}</span><span style="flex:1"></span>${tone(v)}</div></div>`;
-      const ws=[...demo.querySelectorAll("w")]; ws.forEach((w,i)=>wt.push(setTimeout(()=>w.classList.add("on"),reduce?0:110*i)));
-      wt.push(setTimeout(()=>demo.querySelector(".ft").classList.add("on"),reduce?0:110*ws.length+250)); };
+    const show=()=>{ wt.forEach(clearTimeout); wt=[]; const q=QUOTES[k++%QUOTES.length];
+      const words=q.text.split(/\s+/);
+      const hl=q.hl.toLowerCase().split(/\s+/);
+      const html=words.map(w=>{const bare=w.toLowerCase().replace(/[“”".,…]/g,""); return hl.includes(bare)?`<w><mark>${w}</mark></w>`:`<w>${w}</w>`}).join(" ");
+      demo.innerHTML=`<div class="cap">No solo quién te criticó. También quién te defendió.</div><div class="tr"><img class="th" src="${q.img}" alt=""><div class="bx"><div class="meta"><span>${q.outlet}${q.time?" · "+q.time:""}</span><span class="lv"><i></i>transcripción</span></div><div class="q">${html}</div><div class="ft"><span class="who">${q.role}</span><span class="chip-t"><i style="background:${q.c}"></i>${q.tag}</span></div></div></div>`;
+      const ws=[...demo.querySelectorAll("w")]; ws.forEach((w,i)=>wt.push(setTimeout(()=>w.classList.add("on"),reduce?0:90*i)));
+      wt.push(setTimeout(()=>demo.querySelector(".ft").classList.add("on"),reduce?0:90*ws.length+250)); };
     show(); return show;
   },
   4(){ // live log
@@ -223,7 +237,7 @@ const VARIANTS={
   },
 };
 const NAMES={1:"Tarjeta",2:"Notificaciones",3:"Transcripción",4:"Registro",5:"Cinta"};
-const SPEED={1:3600,2:3000,3:5600,4:2800};
+const SPEED={1:3600,2:3000,3:7000,4:2800};
 function run(n){ clearInterval(timer); const step=VARIANTS[n](); if(step&&!reduce) timer=setInterval(step,SPEED[n]);
   document.querySelectorAll(".sw a").forEach(a=>a.classList.toggle("on",a.dataset.n==n));
   try{ history.replaceState(null,"","?anim="+n);}catch(_){} }
