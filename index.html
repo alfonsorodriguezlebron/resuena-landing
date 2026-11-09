@@ -7,41 +7,45 @@
 <meta name="description" content="Resuena escucha la radio, la TV, la prensa y los digitales de Puerto Rico 24/7 y te dice quién habló de ti. Programa piloto.">
 <meta property="og:title" content="Resuena · Entérate antes que nadie">
 <meta property="og:description" content="Radio, TV, prensa y digitales de Puerto Rico, 24/7. Programa piloto abierto.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='6' fill='%23161616'/%3E%3Crect x='5' y='8' width='2' height='6' rx='1' fill='%23fff'/%3E%3Crect x='9' y='5' width='2' height='12' rx='1' fill='%23fff'/%3E%3Crect x='13' y='3' width='2' height='16' rx='1' fill='%23E5484D'/%3E%3Crect x='17' y='7' width='2' height='8' rx='1' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='6' fill='%23161616'/%3E%3Crect x='5' y='8' width='2' height='6' rx='1' fill='%23fff'/%3E%3Crect x='9' y='5' width='2' height='12' rx='1' fill='%23fff'/%3E%3Crect x='13' y='3' width='2' height='16' rx='1' fill='%232F5BD3'/%3E%3Crect x='17' y='7' width='2' height='8' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap" rel="stylesheet">
 <style>
-:root{--ink:rgba(22,22,22,.92);--muted:#6B6B6B;--soft:#9A9A9A;--line:#ECECEC;--red:#E5484D;--redtint:#FDECEC}
+:root{--ink:#141414;--muted:#525252;--soft:#7A7A7A;--line:#EBEBEB;--blue:#2F5BD3;--bluetint:#EEF2FD;--red:#D9443F}
 *{box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 @media (max-height:620px),(max-width:560px){html,body{overflow:auto}}
-body{margin:0;background:#fff;color:var(--ink);font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#fff;color:var(--ink);font-family:Geist,system-ui,sans-serif;letter-spacing:-.006em;-webkit-font-smoothing:antialiased}
 .page{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 20px}
 .top{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:center;padding:22px 0}
 .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.2px}
 .top .small{font-size:13px;color:var(--soft)}
 main{flex:1;width:100%;max-width:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 0 40px}
 
-.pill{display:inline-flex;align-items:center;gap:8px;background:var(--redtint);color:var(--red);font-weight:600;font-size:14px;padding:8px 14px;border-radius:12px;text-decoration:none;transition:transform .15s}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--ink);font-weight:500;font-size:13.5px;padding:7px 14px 7px 12px;border-radius:999px;border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,0,0,.04);text-decoration:none;transition:transform .15s}
 .pill:hover{transform:translateY(-1px)}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(229,72,77,.5);animation:pulse 1.8s infinite}
-@keyframes pulse{to{box-shadow:0 0 0 8px rgba(229,72,77,0)}}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 0 rgba(47,91,211,.5);animation:pulse 1.8s infinite}
+@keyframes pulse{to{box-shadow:0 0 0 8px rgba(47,91,211,0)}}
 
-h1{margin:24px 0 0;font-size:clamp(40px,min(7vw,8.4vh),76px);line-height:1.04;letter-spacing:-.035em;font-weight:800}
-.lead{margin:22px auto 0;max-width:560px;font-size:17px;line-height:1.75;color:var(--ink)}
-.chip{display:inline-flex;align-items:center;gap:5px;background:#F5F5F4;border-radius:7px;padding:0 7px;font-weight:500;white-space:nowrap;line-height:1.6}
+h1{margin:22px 0 0;font-family:Newsreader,Georgia,serif;font-size:clamp(44px,min(7.6vw,9.2vh),84px);line-height:1.02;letter-spacing:-.028em;font-weight:300}
+h1 em{font-style:normal;color:var(--blue);white-space:nowrap}
+h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
+.lead{margin:22px auto 0;max-width:580px;font-size:16.5px;line-height:1.75;color:var(--muted)}
+.lead b{color:var(--ink);font-weight:500}
+.chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:0 9px;font-weight:500;color:var(--ink);white-space:nowrap;line-height:1.6}
 .chip svg{flex:none}
 
 /* voices */
 .voices{position:relative;width:100%;max-width:540px;height:110px;margin:88px auto 0}
 .v{position:absolute;transform:translate(-50%,-50%);z-index:1}
 .v.on{z-index:3}
-.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px #E2E2E2,0 6px 14px -6px rgba(0,0,0,.35);transition:transform .25s}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:500;font-size:12.5px;color:var(--ink);background:#F4F4F4!important;border:3px solid #fff;box-shadow:0 0 0 1px #E4E4E4,0 6px 14px -8px rgba(0,0,0,.3);transition:transform .25s,background .25s,color .25s}
+.v.on .av:not(.anon){background:var(--ink)!important;color:#fff}
 .v.on .av{transform:scale(1.12)}
 .av.anon{background:#fff!important;color:var(--soft);box-shadow:0 0 0 1px #E2E2E2;border-style:dashed;border-color:#D4D4D4}
-.bub{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,6px) scale(.96);opacity:0;pointer-events:none;background:#161616;color:#fff;border-radius:12px;padding:8px 11px;font-size:12.5px;line-height:1.35;text-align:left;width:max-content;max-width:230px;transition:opacity .25s,transform .25s;z-index:2}
-.bub::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#161616}
+.bub{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,6px) scale(.96);opacity:0;pointer-events:none;background:#141414;color:#fff;border-radius:12px;padding:8px 11px;font-size:12.5px;line-height:1.35;text-align:left;width:max-content;max-width:230px;transition:opacity .25s,transform .25s;z-index:2}
+.bub::after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#141414}
 .bub b{font-weight:600}
 .tn i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:0}
 .sd{position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;border:2px solid #fff}
@@ -52,17 +56,17 @@ h1{margin:24px 0 0;font-size:clamp(40px,min(7vw,8.4vh),76px);line-height:1.04;le
 
 /* signup */
 form{display:flex;gap:8px;margin:26px auto 0;width:100%;max-width:420px}
-input{flex:1;min-width:0;border:1px solid #E2E2E2;border-radius:12px;padding:13px 15px;font:inherit;font-size:15px;color:var(--ink);background:#fff}
+input{flex:1;min-width:0;border:1px solid #E4E4E4;border-radius:999px;padding-left:20px!important;padding:13px 15px;font:inherit;font-size:15px;color:var(--ink);background:#fff}
 input:focus{outline:2px solid var(--ink);outline-offset:-1px}
-button{border:0;border-radius:12px;background:#161616;color:#fff;font:inherit;font-weight:600;font-size:15px;padding:13px 18px;cursor:pointer;white-space:nowrap}
-button:hover{background:#333}
+button{border:0;border-radius:999px;background:#141414;color:#fff;font:inherit;font-weight:600;font-size:15px;padding:13px 22px;cursor:pointer;white-space:nowrap}
+button:hover{background:var(--blue)}
 .fine{margin:12px 0 0;font-size:13.5px;color:var(--soft)}
 .ok{display:none;margin:34px auto 0;font-size:15px;color:#1F6B3D;background:#EEF8F1;border-radius:12px;padding:13px 16px}
 
 /* coverage line */
 .cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;padding:20px 0 26px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
 .cov b{color:var(--ink);font-weight:600}
-.cov .prog{color:var(--red)}
+.cov .prog{color:var(--blue)}
 
 @media (max-height:780px) and (min-width:561px){
   .top{padding:14px 0}
@@ -87,16 +91,16 @@ button:hover{background:#333}
 <div class="page" style="position:relative;z-index:1">
   <header class="top">
     <div class="logo">
-      <svg width="24" height="24" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" rx="6" fill="#161616"/><rect x="5" y="8" width="2" height="6" rx="1" fill="#fff"/><rect x="9" y="5" width="2" height="12" rx="1" fill="#fff"/><rect x="13" y="3" width="2" height="16" rx="1" fill="#E5484D"/><rect x="17" y="7" width="2" height="8" rx="1" fill="#fff"/></svg>
+      <svg width="24" height="24" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" rx="6" fill="#141414"/><rect x="5" y="8" width="2" height="6" rx="1" fill="#fff"/><rect x="9" y="5" width="2" height="12" rx="1" fill="#fff"/><rect x="13" y="3" width="2" height="16" rx="1" fill="#2F5BD3"/><rect x="17" y="7" width="2" height="8" rx="1" fill="#fff"/></svg>
       Resuena
     </div>
     <div class="small">Hecho en Puerto Rico</div>
   </header>
 
   <main>
-    <a class="pill" href="#signup"><span class="dot"></span>Programa piloto · Únete <span aria-hidden="true">→</span></a>
+    <a class="pill" href="#signup"><span class="dot"></span>Programa piloto · Únete <span aria-hidden="true" style="color:var(--soft)">→</span></a>
 
-    <h1>Entérate antes que nadie.</h1>
+    <h1>Entérate <span class="glyph" aria-hidden="true"><svg width="0.42em" height="0.42em" viewBox="0 0 20 20"><rect x="1" y="7" width="3" height="6" rx="1.5" fill="#2F5BD3"/><rect x="6" y="3" width="3" height="14" rx="1.5" fill="#2F5BD3"/><rect x="11" y="0" width="3" height="20" rx="1.5" fill="#2F5BD3"/><rect x="16" y="5" width="3" height="10" rx="1.5" fill="#2F5BD3"/></svg></span><em>antes que nadie.</em></h1>
 
     <p class="lead">
       <b>Resuena</b> es la IA que escucha
@@ -141,7 +145,7 @@ const VOICES = [
   {i:"PO", c:"#7048E8", x:76, y:72, t:"pos", who:"Podcast de política",where:"YouTube · próximamente",   say:"te elogió en el episodio de hoy"},
   {i:"SE", c:"#2F9E44", x:93, y:30, t:"neu", who:"Comunicado",         where:"Senado de Puerto Rico",   say:"te nombró en un comunicado"},
 ];
-const TONE = {pos:["Positivo","#2F9E44"], neg:["Negativo","#E5484D"], neu:["Neutral","#9A9A9A"]};
+const TONE = {pos:["Positivo","#2F9E6B"], neg:["Negativo","#D9443F"], neu:["Neutral","#A3A3A3"]};
 const box=document.getElementById("voices");
 box.innerHTML = VOICES.map((v,k)=>`
   <div class="v${v.x<20?" l":v.x>80?" r":""}" style="left:${v.x}%;top:${v.y}%">
@@ -168,7 +172,7 @@ els.forEach((e,j)=>e.addEventListener("mouseenter",()=>{els.forEach(x=>x.classLi
   // speaker rings when a bubble opens
   new MutationObserver(m=>m.forEach(r=>{ if(r.target.classList.contains("on")){ const a=r.target.querySelector(".av").getBoundingClientRect(); const v=VOICES[els.indexOf(r.target)]; const c=hex2(TONE[v.t][1]); add(a.left+a.width/2,a.top+a.height/2,c,true); setTimeout(()=>add(a.left+a.width/2,a.top+a.height/2,c,true),350);} })).observe(box,{subtree:true,attributes:true,attributeFilter:["class"]});
   let last=0; addEventListener("pointermove",e=>{const t=performance.now(); if(t-last>140){add(e.clientX,e.clientY,[22,22,22],false); last=t;}});
-  addEventListener("pointerdown",e=>{add(e.clientX,e.clientY,[229,72,77],true); setTimeout(()=>add(e.clientX,e.clientY,[229,72,77],true),180);});
+  addEventListener("pointerdown",e=>{add(e.clientX,e.clientY,[47,91,211],true); setTimeout(()=>add(e.clientX,e.clientY,[47,91,211],true),180);});
   (function tick(){ ctx.clearRect(0,0,W,H);
     for(let i=rs.length-1;i>=0;i--){const r=rs[i]; r.r+=2.2*dpr; const a=1-r.r/r.max; if(a<=0){rs.splice(i,1);continue;}
       ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2); ctx.strokeStyle=`rgba(${r.col[0]},${r.col[1]},${r.col[2]},${(a*a*.35).toFixed(3)})`; ctx.lineWidth=1.4*dpr; ctx.stroke();}
