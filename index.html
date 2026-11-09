@@ -45,7 +45,6 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .mc{position:absolute;left:4px;right:4px;top:4px;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid #EEEEF1;border-radius:8px;padding:11px 14px;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,border-color .2s ease;cursor:default}
 .mc:hover{border-color:#EBCFE0;transform:var(--t) translateY(-2px)}
 .mc .a{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3B45;background:#F4F4F5!important}
-.mc .a .sd{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;border:2px solid #fff}
 .mc .a.anon{background:#fff!important;border:2px dashed #DCD2E8;color:#8C83A0}
 .mc .tx{flex:1;min-width:0}
 .mc .l1{font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -104,18 +103,9 @@ button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;bo
 .sum .lg{display:flex;gap:16px;font-size:12px;color:#6B6B76}
 .sum .lg span{display:inline-flex;align-items:center;gap:6px}
 .sum .lg i{width:8px;height:8px;border-radius:2px;display:block}
-/* card sentiment options (preview: add ?pick to the URL to switch) */
-.mc.pos{--c:#2F9E6B;--cs:#E6F5EE;--cb:#BFE5D1}.mc.neg{--c:#E5484D;--cs:#FDECEC;--cb:#F6C9CA}.mc.neu{--c:#8C8799;--cs:#F1F0F4;--cb:#E2E0E8}
-.mc .s{display:none}
-body:not([data-s="0"]) .mc .a .sd{display:none}
-body[data-s="1"] .mc{overflow:hidden}body[data-s="1"] .mc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}
-body[data-s="2"] .mc{border-color:var(--cb)}
-body[data-s="3"] .mc .s{display:inline;color:var(--c);font-weight:500}
-body[data-s="4"] .mc .say{background:var(--cs);border-radius:3px;padding:1px 4px}
-body[data-s="5"] .mc .a{background:var(--cs)!important;color:var(--c)}body[data-s="5"] .mc.neu .a{color:#5F5A6B}
-.pick{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9;display:flex;gap:4px;padding:5px;background:#141414;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
-.pick button{all:unset;cursor:pointer;font-size:12.5px;font-weight:500;color:#BDBDBD;padding:6px 10px;border-radius:6px}
-.pick button.on{background:#fff;color:#141414}
+/* card sentiment: soft highlight behind what they said */
+.mc.pos{--cs:#E6F5EE}.mc.neg{--cs:#FDECEC}.mc.neu{--cs:#F1F0F4}
+.mc .say{background:var(--cs);border-radius:3px;padding:1px 4px}
 </style>
 </head>
 <body>
@@ -173,7 +163,6 @@ const NOTES=[
   {i:"LE", who:"Legislador de tu partido",            say:"dijo que la controversia es autoinfligida",where:"NotiUno 630 · 9:11 a.m.", t:"neg"},
   {i:"CO", who:"Comentarista",                        say:"culpó a tu equipo, no a ti",              where:"Radio",                   t:"neu"},
 ];
-const DOT={neg:"#E5484D",pos:"#2F9E6B",neu:"#8B6CF0"};
 // pastel per card: border, hover border, soft fill (avatar, tag, play)
 const PASTEL=[{bd:"#DCCEF5",bdh:"#C4AEEE",soft:"#F3EEFC"},{bd:"#C9DDFB",bdh:"#A9C7F6",soft:"#EDF4FE"},{bd:"#C8EBD6",bdh:"#A6DDBD",soft:"#ECF8F1"},{bd:"#FBDCC8",bdh:"#F6C5A6",soft:"#FEF3EC"},{bd:"#F7D2E4",bdh:"#F0B5D1",soft:"#FDEFF6"}];
 const TOPIC=["Llamada","Partido","Prensa","Escuelas","Maestros","Convención","Gobierno"];
@@ -184,20 +173,11 @@ const tally=t=>{ COUNTS[t]++;
   for(const k in COUNTS) document.getElementById("b-"+k).style.flexGrow=COUNTS[k];
   setNum(document.getElementById("n-"+t),COUNTS[t]);
   setNum(document.getElementById("n-all"),COUNTS.pos+COUNTS.neg+COUNTS.neu); };
-/* Card sentiment style. 0 = current dot. Preview switcher shows only with ?pick in the URL. */
-document.body.dataset.s="0";
-if(new URLSearchParams(location.search).has("pick")){
-  const L=["Punto","1 Franja","2 Borde","3 Palabra","4 Subrayado","5 Avatar"], bar=document.createElement("div"); bar.className="pick";
-  const set=v=>{ document.body.dataset.s=v; [...bar.children].forEach((b,i)=>b.classList.toggle("on",i==v)); };
-  L.forEach((l,i)=>{ const b=document.createElement("button"); b.textContent=l; b.onclick=()=>set(i); bar.appendChild(b); });
-  document.body.appendChild(bar); set(1);
-  addEventListener("keydown",e=>{ const v=+document.body.dataset.s; if(e.key==="ArrowRight") set((v+1)%6); if(e.key==="ArrowLeft") set((v+5)%6); });
-}
 const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#3B3B45"/></svg></span>';
 (function(){
   const demo=document.getElementById("demo"); let k=0; const list=[]; const GAP=10;
   const make=(v,n)=>{ const el=document.createElement("div"); el.className="mc "+v.t; const c=PASTEL[n%PASTEL.length]; el.style.setProperty("--bd",c.bd); el.style.setProperty("--bdh",c.bdh); el.style.setProperty("--soft2",c.soft);
-    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.i}<i class="sd" style="background:${DOT[v.t]}"></i></span><div class="tx"><div class="l1"><b>${v.who}</b> <span class="say">${v.say}</span></div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}<span class="s"> · ${{pos:"Positiva",neg:"Negativa",neu:"Mixta"}[v.t]}</span></div></div>${PLAY}`; return el; };
+    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> <span class="say">${v.say}</span></div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}</div></div>${PLAY}`; return el; };
   const fits=()=>{ let y=0,c=0; for(const el of list){ y+=el.offsetHeight; if(y>demo.clientHeight-4) break; c++; y+=GAP; } return Math.max(1,c); };
   const place=()=>{ const max=fits(); let y=0; list.forEach((el,i)=>{ const t=i<max?`translateY(${y}px)`:`translateY(${demo.clientHeight}px)`; el.style.setProperty("--t",t); el.style.transform=t; el.style.opacity=i<max?1:0; y+=el.offsetHeight+GAP; }); };
   const add=(count)=>{ const n=k%NOTES.length; const el=make(NOTES[n],n); k++; if(count===true) tally(NOTES[n].t);
