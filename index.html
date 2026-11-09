@@ -3,225 +3,380 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Resuena · Todo lo que se dice de ti, en un solo lugar</title>
+<title>resuena · todo lo que se dice de ti, en un solo lugar</title>
 <meta name="description" content="Resuena graba la radio, la TV, la prensa y los medios digitales de Puerto Rico 24/7 y organiza cada mención por persona. Programa piloto.">
-<meta property="og:title" content="Resuena · Todo lo que se dice de ti, en un solo lugar">
+<meta property="og:title" content="resuena · todo lo que se dice de ti, en un solo lugar">
 <meta property="og:description" content="Radio, TV, prensa y digitales de Puerto Rico, 24/7. Programa piloto abierto.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect width='22' height='22' rx='5' fill='%23121212'/%3E%3Crect x='5' y='8' width='2' height='6' rx='1' fill='%23fff'/%3E%3Crect x='9' y='5' width='2' height='12' rx='1' fill='%23fff'/%3E%3Crect x='13' y='3' width='2' height='16' rx='1' fill='%23D9372B'/%3E%3Crect x='17' y='7' width='2' height='8' rx='1' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%232D4FA3'/%3E%3Crect x='5' y='9' width='3' height='6' fill='%23F0E9D8'/%3E%3Crect x='10.5' y='4' width='3' height='16' fill='%23C8432F'/%3E%3Crect x='16' y='7' width='3' height='10' fill='%23F0E9D8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;700&family=Atkinson+Hyperlegible+Next:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAFAF9;--ink:#121212;--muted:#5C5C58;--soft:#8A8A85;--line:#E4E4E0;--line2:#EFEFEA;--accent:#D9372B}
+:root{
+  --paper:#F0E9D8; --ink:#141412; --ink2:#4A463F;
+  --red:#C8432F; --blue:#2D4FA3; --yellow:#E9B23C; --white:#FBF8F0;
+  --b:2px solid var(--ink);
+  --sans:"Atkinson Hyperlegible Next",system-ui,sans-serif;
+  --mono:"Atkinson Hyperlegible Mono",ui-monospace,monospace;
+}
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
-.rail{max-width:1160px;height:100vh;min-height:640px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line);display:grid;grid-template-rows:60px minmax(0,1fr) auto}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.45}
+/* paper grain */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+.mono{font-family:var(--mono)}
+.frame{max-width:1320px;margin:14px auto;border:var(--b);background:var(--paper)}
+.row{display:grid;border-bottom:var(--b)}
+.row:last-child{border-bottom:0}
+.c{border-right:var(--b);min-width:0}
+.c:last-child{border-right:0}
 
-/* nav */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.3px}
-.pill{display:inline-flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.3px;color:#444;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 10px;background:#fff}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,55,43,.45)}100%{box-shadow:0 0 0 9px rgba(217,55,43,0)}}
-.live{animation:pulse 1.6s infinite}
+/* header */
+.head{grid-template-columns:1fr;padding:16px 22px;display:flex;align-items:center;justify-content:space-between}
+.mark{display:block}
+.nav{display:flex;gap:16px;font-family:var(--mono);font-size:13px;letter-spacing:.6px;font-weight:500}
+.nav a{text-decoration:none;white-space:nowrap}
+.nav a:hover{color:var(--red)}
+.nav .cta{background:var(--red);color:var(--white);padding:2px 8px}
+.nav .cta:hover{color:var(--white);background:var(--ink)}
 
-/* main */
-.main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0}
-.left{padding:0 48px 0 32px;display:flex;flex-direction:column;justify-content:center;gap:26px;border-right:1px solid var(--line)}
-h1{margin:0;font-size:clamp(40px,4.6vw,60px);line-height:1.02;letter-spacing:-2px;font-weight:700}
-h1 em{font-style:normal;color:var(--accent)}
-.lead{margin:0;font-size:18px;color:var(--muted);max-width:480px}
-.form{display:flex;gap:8px;max-width:460px}
-.form input{flex:1;min-width:0;padding:14px 16px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:#fff;color:var(--ink)}
-.form input:focus{outline:2px solid #121212;outline-offset:-1px}
-.btn{background:var(--ink);color:#fff;padding:14px 18px;border-radius:10px;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit;white-space:nowrap}
-.btn:hover{background:#2a2a2a}
-.fine{font-size:13px;color:var(--soft);margin:-14px 0 0}
-.ok{display:none;font-size:15px;background:#EEF8F1;color:#1F6B3D;border-radius:10px;padding:14px 16px;max-width:460px}
+/* hero */
+.hero{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);min-height:min(46vh,440px)}
+.word{display:flex;align-items:center;padding:0 0 0 22px;overflow:hidden;position:relative}
+.word h1{margin:0;font-weight:800;font-size:clamp(84px,14.2vw,196px);line-height:.8;letter-spacing:-.045em;text-shadow:4px 4px 0 rgba(45,79,163,.22);padding-bottom:.12em}
+.word .tick{position:absolute;right:22px;top:20px;font-family:var(--mono);font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.live{width:9px;height:9px;background:var(--red);display:inline-block;animation:blink 1.2s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+.art{position:relative;background:var(--paper);overflow:hidden}
+.art canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
 
-.right{background:#F3F3F0;padding:28px 32px;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden}
-.card{width:100%;max-width:480px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 60px -40px rgba(0,0,0,.28);overflow:hidden}
-.chead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
-.avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
-.chip{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#666;background:#F3F3F0;border-radius:5px;padding:1px 6px;margin-right:4px}
-.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line2);align-items:center}
-.who{font-size:14px;font-weight:600}
-.badge{font-size:10.5px;font-weight:500;border-radius:999px;padding:2px 7px;margin-left:6px;vertical-align:1px}
-.v{color:#5B3CC4;background:#F0ECFF}
-.a{color:#666;background:#F3F3F0}
-.where{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--soft)}
-.what{font-size:13px;color:#444;margin-top:2px}
-.play{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
-.gtitle{display:flex;justify-content:space-between;align-items:center;padding:12px 18px 0;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--soft);text-transform:uppercase;letter-spacing:.4px}
-.graph{display:block;width:100%;height:auto;padding:0 8px 6px}
-.ill{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--soft);text-align:center;margin-top:10px;letter-spacing:.3px}
+/* sub row */
+.sub{grid-template-columns:minmax(0,1fr) minmax(0,2.1fr)}
+.redcell{background:var(--red);color:var(--white);padding:22px;font-weight:700;font-size:21px;line-height:1.25}
+.meta{padding:18px 22px;display:grid;grid-template-columns:1fr auto;gap:6px 24px;align-items:center}
+.meta .lbl{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:14px}
+.bars i{width:4px;background:var(--blue);display:block}
+.meta .who{font-weight:700;font-size:15px;text-align:right}
+.meta p{grid-column:1/-1;margin:0;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
 
-/* coverage strip */
-.cov{border-top:1px solid var(--line);display:grid;grid-template-columns:auto minmax(0,1fr)}
-.covstats{display:flex;border-right:1px solid var(--line)}
-.cs{padding:14px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
-.cs:last-child{border-right:0}
-.cs b{font-size:20px;letter-spacing:-.5px;line-height:1.1}
-.cs span{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--soft);text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
-.cs.prog b{font-size:13px;color:#9A5B00;display:flex;align-items:center;gap:6px}
-.marq{overflow:hidden;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.track{display:flex;gap:26px;white-space:nowrap;animation:scroll 90s linear infinite;font-size:13px;color:var(--muted);padding-left:26px}
-.track span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:#C9C9C3;margin-right:26px;vertical-align:middle}
-@keyframes scroll{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.track,.live{animation:none}}
+/* body with index rail */
+.body{grid-template-columns:minmax(0,1fr) minmax(0,2.1fr)}
+.rail{position:relative;padding:28px 22px}
+.rail .line{position:absolute;left:39px;top:46px;bottom:28px;width:3px;background:var(--red)}
+.rail .end{position:absolute;left:33px;bottom:22px;width:15px;height:15px;background:var(--red)}
+.idx{position:sticky;top:20px;display:flex;flex-direction:column;gap:36px}
+.idx a{display:flex;align-items:center;gap:14px;text-decoration:none;font-weight:700;font-size:17px;position:relative;z-index:1}
+.idx .n{width:36px;height:36px;border-radius:50%;background:var(--red);color:var(--white);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:500;flex:none}
+.idx a:hover .t{text-decoration:underline;text-underline-offset:4px}
+.blocks{display:flex;flex-direction:column}
+.blk{border-bottom:var(--b);scroll-margin-top:14px}
+.blk:last-child{border-bottom:0}
 
-/* small screens: stack and allow scroll */
-@media (max-width:900px),(max-height:620px){
-  .rail{height:auto;min-height:100vh;grid-template-rows:auto}
-  .nav{height:60px;padding:0 20px}
-  .main{grid-template-columns:minmax(0,1fr)}
-  .left{padding:48px 20px;border-right:0;border-bottom:1px solid var(--line)}
-  .right{padding:24px 12px}
-  .cov{grid-template-columns:minmax(0,1fr)}
-  .covstats{flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line)}
-  .cs{flex:1 1 33%;border-bottom:1px solid var(--line)}
-  .marq{padding:14px 0}
+.yellow{background:var(--yellow);padding:30px 28px 34px}
+.yellow h2{margin:0;font-size:clamp(30px,3.5vw,46px);line-height:1.08;letter-spacing:-.02em;font-weight:800;text-shadow:3px 3px 0 rgba(200,67,47,.18);max-width:760px}
+.yellow p{margin:18px 0 0;font-size:17px;max-width:640px}
+
+/* example */
+.ex{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.ex .c{padding:0}
+.lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.5px;color:var(--ink2);padding:12px 18px;border-bottom:var(--b);display:flex;justify-content:space-between;gap:10px}
+.prof{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(20,20,18,.25)}
+.av{width:38px;height:38px;background:var(--blue);color:var(--white);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.tag{font-family:var(--mono);font-size:11px;border:1px solid var(--ink);padding:0 5px;margin-right:4px;white-space:nowrap}
+.m{display:grid;grid-template-columns:52px minmax(0,1fr) 26px;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(20,20,18,.18);align-items:start}
+.m:last-child{border-bottom:0}
+.m .t{font-family:var(--mono);font-size:12px;color:var(--ink2);padding-top:2px}
+.m b{font-size:15px}
+.m .badge{white-space:nowrap;font-family:var(--mono);font-size:10.5px;margin-left:6px;padding:1px 5px;vertical-align:1px}
+.v{background:var(--blue);color:var(--white)}
+.anon{border:1px dashed var(--ink)}
+.m .w{font-family:var(--mono);font-size:11.5px;color:var(--ink2)}
+.m .x{font-size:14px;margin-top:3px}
+.pl{width:26px;height:26px;border:1.5px solid var(--ink);display:grid;place-items:center;margin-top:2px}
+.graph svg{display:block;width:100%;height:auto}
+.foot-note{font-family:var(--mono);font-size:11px;color:var(--ink2);padding:10px 18px;border-top:var(--b)}
+
+/* coverage */
+.blue{background:var(--blue);color:var(--white);padding:26px 28px}
+.blue h3{margin:0 0 18px;font-size:22px;letter-spacing:-.01em}
+.cov{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px 18px;font-family:var(--mono);font-size:13.5px}
+.cov .k{color:#C9D3F0;white-space:nowrap}
+.cov .k b{color:var(--white);font-weight:700}
+.cov .vals{color:var(--white);opacity:.92}
+.cov .prog{color:var(--yellow)}
+
+/* pilot */
+.pilot{background:var(--paper);padding:28px}
+.pilot h3{margin:0;font-size:26px;letter-spacing:-.01em}
+.pilot p{margin:8px 0 20px;font-size:16px;color:var(--ink2);max-width:560px}
+form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:var(--b);max-width:640px;background:var(--white)}
+form input{border:0;border-bottom:var(--b);border-right:var(--b);padding:14px 14px;font:inherit;font-size:15px;background:transparent;color:var(--ink);min-width:0}
+form input.r{border-right:0}
+form input:focus{outline:0;background:#fff}
+form .full{grid-column:1/-1;border-right:0}
+form button{grid-column:1/-1;border:0;background:var(--red);color:var(--white);font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.8px;padding:15px;cursor:pointer;text-align:left}
+form button:hover{background:var(--ink)}
+.ok{display:none;max-width:640px;border:var(--b);background:var(--white);padding:16px;font-family:var(--mono);font-size:14px}
+.sr{position:absolute;left:-9999px}
+
+/* footer */
+.footer{background:var(--ink);color:var(--paper);display:block;position:relative}
+.footer canvas{display:block;width:100%;height:220px;image-rendering:pixelated}
+.fbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 22px;font-family:var(--mono);font-size:12px;letter-spacing:.5px;border-top:1px solid #333}
+
+@media (max-width:900px){
+  .frame{margin:8px}
+  .hero,.sub,.body,.ex{grid-template-columns:minmax(0,1fr)}
+  .c{border-right:0;border-bottom:var(--b)}
+  .c:last-child{border-bottom:0}
+  .hero{min-height:0}
+  .word{padding:28px 16px 18px;min-height:0}
+  .word h1{font-size:21vw}
+  .meta{grid-template-columns:minmax(0,1fr)}
+  .meta .who{text-align:left;order:-1}
+  .word .tick{position:static;margin-top:10px}
+  .word{flex-direction:column;align-items:flex-start}
+  .art{height:260px}
+  .rail{display:none}
+  .nav a:not(.cta){display:none}
+  .yellow,.blue,.pilot{padding:24px 18px}
+  form{grid-template-columns:minmax(0,1fr)}
+  form input{border-right:0}
+  .cov{grid-template-columns:minmax(0,1fr);gap:2px 0}
+  .cov .vals{margin-bottom:10px}
 }
-@media (max-width:480px){
-  .form{flex-direction:column}
-  .pill .long{display:none}
-}
+@media (prefers-reduced-motion:reduce){.live{animation:none}}
 </style>
 </head>
 <body>
-<div class="rail">
+<div class="frame">
 
-  <nav class="nav">
-    <div class="logo">
-      <svg width="24" height="24" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" rx="5" fill="#121212"/><rect x="5" y="8" width="2" height="6" rx="1" fill="#fff"/><rect x="9" y="5" width="2" height="12" rx="1" fill="#fff"/><rect x="13" y="3" width="2" height="16" rx="1" fill="#D9372B"/><rect x="17" y="7" width="2" height="8" rx="1" fill="#fff"/></svg>
-      Resuena
+  <!-- header -->
+  <div class="row head">
+    <a href="#top" class="mark" aria-label="resuena">
+      <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#2D4FA3"/><rect x="5" y="9" width="3" height="6" fill="#F0E9D8"/><rect x="10.5" y="4" width="3" height="16" fill="#C8432F"/><rect x="16" y="7" width="3" height="10" fill="#F0E9D8"/></svg>
+    </a>
+    <nav class="nav">
+      <a href="#ejemplo">[ EJEMPLO ]</a>
+      <a href="#cobertura">[ COBERTURA ]</a>
+      <a href="#piloto" class="cta">[ UNIRME AL PILOTO ↗ ]</a>
+    </nav>
+  </div>
+
+  <!-- hero -->
+  <div class="row hero" id="top">
+    <div class="c word">
+      <h1>resuena</h1>
+      <div class="tick"><span class="live"></span>GRABANDO 24/7</div>
     </div>
-    <div class="pill"><span class="dot live"></span>PROGRAMA PILOTO<span class="long">· PRE-LANZAMIENTO</span></div>
-  </nav>
+    <div class="c art"><canvas id="art" aria-hidden="true"></canvas></div>
+  </div>
 
-  <main class="main">
-    <section class="left">
-      <h1>Todo lo que se dice de ti, <em>en un solo lugar.</em></h1>
-      <p class="lead">Puerto Rico habla todo el día y nadie puede escucharlo todo. Resuena graba la radio, la TV, la prensa y los digitales 24/7 y te dice quién habló de ti, dónde y qué dijo.</p>
-      <form class="form" id="form" novalidate>
-        <label for="email" style="position:absolute;left:-9999px">Correo electrónico</label>
-        <input id="email" name="correo" type="email" placeholder="tu@correo.com" required autocomplete="email">
-        <button class="btn" type="submit">Unirme al piloto</button>
-      </form>
-      <p class="fine">Aún no hemos lanzado. Estamos construyendo con un grupo pequeño. Te contactamos.</p>
-      <div class="ok" id="ok">Gracias. Te contactamos pronto.</div>
-    </section>
+  <!-- sub -->
+  <div class="row sub">
+    <div class="c redcell">Monitoreo de medios para Puerto Rico.</div>
+    <div class="c meta">
+      <div class="lbl"><span class="bars" id="bars"></span>menciones por hora, madrugada → noche</div>
+      <div class="who">Programa piloto</div>
+      <p>Radio, TV, prensa, digitales y gobierno. Cada palabra, guardada desde noviembre 2026.</p>
+    </div>
+  </div>
 
-    <section class="right" aria-label="Ejemplo de perfil">
-      <div style="width:100%;max-width:480px">
-        <div class="card">
-          <div class="chead">
-            <div class="avatar">JG</div>
-            <div style="min-width:0">
-              <div style="font-weight:600;font-size:15px">Jenniffer González Colón</div>
-              <div><span class="chip">Gobernadora</span><span class="chip">“la gobernadora”</span><span class="chip">“JGo”</span></div>
-            </div>
-          </div>
-          <div id="feed"></div>
-          <div class="gtitle"><span>Quién habla de ti</span><span>7 días</span></div>
-          <svg class="graph" id="graph" viewBox="0 0 460 196" aria-hidden="true"></svg>
-        </div>
-        <div class="ill">EJEMPLO ILUSTRATIVO · LOS OYENTES SIEMPRE SON ANÓNIMOS</div>
+  <!-- body -->
+  <div class="row body">
+    <div class="c rail">
+      <div class="line"></div><div class="end"></div>
+      <div class="idx">
+        <a href="#que"><span class="n">01</span><span class="t">Qué es</span></a>
+        <a href="#ejemplo"><span class="n">02</span><span class="t">Ejemplo</span></a>
+        <a href="#cobertura"><span class="n">03</span><span class="t">Cobertura</span></a>
+        <a href="#piloto"><span class="n">04</span><span class="t">Piloto</span></a>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <footer class="cov">
-    <div class="covstats" id="covstats"></div>
-    <div class="marq"><div class="track" id="track"></div></div>
+    <div class="c blocks">
+      <section class="blk yellow" id="que">
+        <h2>Puerto Rico habla de ti todo el día. Nadie puede escucharlo todo. Resuena sí.</h2>
+        <p>Grabamos los medios del país las 24 horas y organizamos cada mención alrededor de las personas que te importan: quién lo dijo, dónde, cuándo y qué dijo.</p>
+      </section>
+
+      <section class="blk" id="ejemplo">
+        <div class="ex">
+          <div class="c">
+            <div class="lab"><span>PERFIL</span><span>HOY</span></div>
+            <div class="prof">
+              <div class="av">JG</div>
+              <div style="min-width:0">
+                <div style="font-weight:700;font-size:16px">Jenniffer González Colón</div>
+                <div style="margin-top:3px"><span class="tag">gobernadora</span><span class="tag">“JGo”</span><span class="tag">“la gobernadora”</span></div>
+              </div>
+            </div>
+            <div id="feed"></div>
+          </div>
+          <div class="c graph">
+            <div class="lab"><span>QUIÉN HABLA DE TI</span><span>7 DÍAS</span></div>
+            <svg id="graph" viewBox="0 0 400 330" aria-hidden="true"></svg>
+          </div>
+        </div>
+        <div class="foot-note">EJEMPLO ILUSTRATIVO · SOLO NOMBRAMOS FIGURAS PÚBLICAS Y MEDIOS · LOS OYENTES SIEMPRE SON ANÓNIMOS</div>
+      </section>
+
+      <section class="blk blue" id="cobertura">
+        <h3>Lo que se dice en Puerto Rico, desde un solo lugar.</h3>
+        <div class="cov" id="cov"></div>
+      </section>
+
+      <section class="blk pilot" id="piloto">
+        <h3>Aún no hemos lanzado.</h3>
+        <p>Estamos construyendo Resuena con un grupo pequeño de equipos de comunicación, campañas y monitores de medios. Déjanos tus datos y te contactamos.</p>
+        <form id="form" novalidate>
+          <label class="sr" for="f1">Nombre</label><input id="f1" name="nombre" placeholder="Nombre" autocomplete="name" required>
+          <label class="sr" for="f2">Organización</label><input id="f2" class="r" name="organizacion" placeholder="Organización" autocomplete="organization">
+          <label class="sr" for="f3">Correo</label><input id="f3" name="correo" class="full" type="email" placeholder="tu@correo.com" autocomplete="email" required>
+          <button type="submit">[ UNIRME AL PILOTO ↗ ]</button>
+        </form>
+        <div class="ok" id="ok">Gracias. Te contactamos pronto.</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="row footer">
+    <canvas id="foot" aria-hidden="true"></canvas>
+    <div class="fbar"><span>© 2026 RESUENA · SAN JUAN, PUERTO RICO</span><span>[ HECHO EN PUERTO RICO ]</span></div>
   </footer>
-
 </div>
 
 <script>
 /* ============================================================
-   FUENTES: edit these lists to update the numbers and the
-   scrolling names at the bottom of the page.
+   FUENTES: edit these lists to update the coverage block.
    ============================================================ */
-const SOURCES = {
-  radio: ["WKAQ 580","NotiUno 630","Radio Isla 1320","WAPA Radio 680","WIPR 940","Radio Paz 810","QBS 870","WIAC 740","WALO 1240","WISA 1390","Radio Atenas 1500","Radio Once 1120","WPAB 550","Victoria 840","Radio Grito 1200","Radio Raíces 1460","WPRA 990","WABA 850","X61 610","Éxitos 1530","Radio Prócer 1380","KQ 105","La Nueva 94.7","La X 100.7","Magic 97.3","Mega 106.9","Z 93.7","Salsoul 99.1","Radio Universidad 89.7","Católica Radio 88.9"],
-  tv: ["Telemundo PR","WAPA TV","TeleOnce","WIPR TV"],
-  prensa: ["El Nuevo Día","El Vocero","The San Juan Daily Star","The Weekly Journal","El Sol de Puerto Rico","Periódico Visión","El Expresso","Guaynabo al Día","Es Noticia","El Oriental","Periódico Presencia","La Semana"],
-  digital: ["Primera Hora","NotiUno","Metro Puerto Rico","WAPA.tv","Caribbean Business","Puerto Rico Tribune","NewsPR","Jay Fonseca","Sandra Me Dijo","Sin Comillas","El Calce","InDiario","Foro Noticioso","Tu Noticia PR","Es Noticia PR","Claridad","La Perla del Sur","El Adoquín Times","El Vigía","Periódico El Sol","Ey Boricua","9 Millones","NEL PR","El Post Antillano","Microjuris al Día","La Voz Digital","Noticias de Bayamón","Puerto Rico Te Quiero","Puerto Rico Posts","Puerto Rico Vive TV","Síntesis Noticiosa","Bonita Radio","La Calle Digital"],
-  gobierno: ["Senado de Puerto Rico","Departamento de Justicia","Poder Judicial","Junta de Supervisión Fiscal","Oficina del Contralor"],
-};
+const SOURCES = [
+  ["radio", ["WKAQ 580","NotiUno 630","Radio Isla 1320","WAPA Radio 680","WIPR 940","Radio Paz 810","QBS 870","WIAC 740","WALO 1240","WISA 1390","Radio Atenas 1500","Radio Once 1120","WPAB 550","Victoria 840","Radio Grito 1200","Radio Raíces 1460","WPRA 990","WABA 850","X61 610","Éxitos 1530","Radio Prócer 1380","KQ 105","La Nueva 94.7","La X 100.7","Magic 97.3","Mega 106.9","Z 93.7","Salsoul 99.1","Radio Universidad 89.7","Católica Radio 88.9"]],
+  ["tv", ["Telemundo PR","WAPA TV","TeleOnce","WIPR TV"]],
+  ["prensa", ["El Nuevo Día","El Vocero","The San Juan Daily Star","The Weekly Journal","El Sol de Puerto Rico","Periódico Visión","El Expresso","Guaynabo al Día","Es Noticia","El Oriental","Periódico Presencia","La Semana"]],
+  ["digitales", ["Primera Hora","NotiUno","Metro Puerto Rico","WAPA.tv","Caribbean Business","Puerto Rico Tribune","NewsPR","Jay Fonseca","Sandra Me Dijo","Sin Comillas","El Calce","InDiario","Foro Noticioso","Tu Noticia PR","Es Noticia PR","Claridad","La Perla del Sur","El Adoquín Times","El Vigía","Periódico El Sol","Ey Boricua","9 Millones","NEL PR","El Post Antillano","Microjuris al Día","La Voz Digital","Noticias de Bayamón","Puerto Rico Te Quiero","Puerto Rico Posts","Puerto Rico Vive TV","Síntesis Noticiosa","Bonita Radio","La Calle Digital"]],
+  ["gobierno", ["Senado de Puerto Rico","Departamento de Justicia","Poder Judicial","Junta de Supervisión Fiscal","Oficina del Contralor"]],
+];
+const IN_PROGRESS = [["redes", "Facebook, Instagram, X, TikTok · en progreso"], ["podcasts", "YouTube y podcasts · próximamente"]];
+const SHOW = 8;
 
-/* coverage strip */
-(function(){
-  const s = [[SOURCES.radio.length,"radio"],[SOURCES.tv.length,"TV"],[SOURCES.prensa.length,"prensa"],[SOURCES.digital.length,"digitales"],[SOURCES.gobierno.length,"gobierno"]];
-  document.getElementById("covstats").innerHTML =
-    s.map(([n,l])=>`<div class="cs"><b>${n}</b><span>${l}</span></div>`).join("") +
-    `<div class="cs prog"><b><span class="dot"></span>Redes</b><span>en progreso</span></div>`;
-  const all = [...SOURCES.radio, ...SOURCES.tv, ...SOURCES.prensa, ...SOURCES.digital, ...SOURCES.gobierno];
-  const html = all.map(x=>`<span>${x}</span>`).join("");
-  document.getElementById("track").innerHTML = html + html; // doubled for seamless loop
-})();
+/* coverage */
+document.getElementById("cov").innerHTML =
+  SOURCES.map(([k,v]) => `<div class="k">${k} ·· <b>${v.length}</b></div><div class="vals">${v.slice(0,SHOW).join(", ")}${v.length>SHOW?`, +${v.length-SHOW} más`:""}</div>`).join("") +
+  IN_PROGRESS.map(([k,v]) => `<div class="k">${k} ··</div><div class="vals prog">${v}</div>`).join("");
 
-/* profile feed (illustrative) */
-(function(){
-  const feed = [
-    {who:"Jay Fonseca", b:"v", bt:"✓ Verificado", where:"Web y YouTube · 06:42", what:"Comentó sobre el presupuesto del próximo año fiscal.", c:"#9A9A94"},
-    {who:"Oyente", b:"a", bt:"Anónimo", where:"NotiUno 630 · Llamada · 07:15", what:"Se quejó de los apagones en su sector.", c:"#D9372B"},
-    {who:"Sandra Rodríguez Cotto", b:"v", bt:"✓ Verificado", where:"WKAQ 580 · Panel · 08:03", what:"Habló de la agenda legislativa de la semana.", c:"#9A9A94"},
-  ];
-  const play = '<span class="play"><svg width="9" height="11" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#121212"/></svg></span>';
-  document.getElementById("feed").innerHTML = feed.map(f=>`
-    <div class="row">
-      <div style="min-width:0">
-        <div class="who">${f.who}<span class="badge ${f.b}">${f.bt}</span></div>
-        <div class="where">${f.where}</div>
-        <div class="what">${f.what}</div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:${f.c}"></span>${play}</div>
-    </div>`).join("");
-})();
+/* hourly bars */
+document.getElementById("bars").innerHTML = [2,1,1,1,2,5,9,12,11,9,8,7,8,7,6,6,7,9,8,6,5,4,3,2].map(h=>`<i style="height:${2+h}px"></i>`).join("");
 
-/* mini "who talks about you" graph (illustrative) */
+/* example feed (illustrative) */
+const FEED = [
+  ["06:42","Jay Fonseca","v","web y youtube","Comentó sobre el presupuesto del próximo año fiscal."],
+  ["07:15","Oyente","anon","notiuno 630 · llamada","Se quejó de los apagones en su sector."],
+  ["08:03","Sandra Rodríguez Cotto","v","wkaq 580 · panel","Habló de la agenda legislativa de la semana."],
+];
+document.getElementById("feed").innerHTML = FEED.map(([t,who,k,w,x]) => `
+  <div class="m"><div class="t">${t}</div>
+    <div><b>${who}</b><span class="badge ${k}">${k==="v"?"✓ VERIFICADO":"ANÓNIMO"}</span><div class="w">${w}</div><div class="x">${x}</div></div>
+    <div class="pl"><svg width="9" height="11" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#141412"/></svg></div>
+  </div>`).join("");
+
+/* who-talks graph (illustrative) */
 (function(){
-  const svg=document.getElementById("graph"), ns="http://www.w3.org/2000/svg";
-  const el=(t,a,txt)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);if(txt)e.textContent=txt;return e};
-  const cx=230, cy=100;
-  const N=[
-    {l:"Jay Fonseca",x:70,y:44,w:6,k:"p"},
-    {l:"NotiUno 630",x:230,y:30,w:3,k:"m"},
-    {l:"S. Rodríguez Cotto",x:390,y:44,w:4,k:"p"},
-    {l:"Oyentes",x:46,y:150,w:4,k:"o"},
-    {l:"WKAQ 580",x:150,y:166,w:5,k:"m"},
-    {l:"El Nuevo Día",x:310,y:166,w:4,k:"m"},
-    {l:"Telemundo PR",x:414,y:150,w:3,k:"m"},
-  ];
-  N.forEach(n=>svg.appendChild(el("line",{x1:cx,y1:cy,x2:n.x,y2:n.y,stroke:n.k==="o"?"#D9372B":"#121212","stroke-opacity":n.k==="o"?.5:.7,"stroke-width":n.w*.7,"stroke-linecap":"round","stroke-dasharray":n.k==="o"?"1.5 5":""})));
-  N.forEach(n=>{
-    const r=4+n.w, above=n.y<cy;
-    svg.appendChild(el("circle",{cx:n.x,cy:n.y,r,fill:n.k==="p"?"#121212":"#fff",stroke:n.k==="o"?"#D9372B":"#121212","stroke-width":1.4,"stroke-dasharray":n.k==="o"?"2 2":""}));
-    svg.appendChild(el("text",{x:n.x,y:above?n.y-r-7:n.y+r+14,"text-anchor":"middle","font-size":11,"font-weight":600,"font-family":"Inter, sans-serif",fill:"#121212"},n.l));
+  const s=document.getElementById("graph"), ns="http://www.w3.org/2000/svg";
+  const el=(t,a,txt)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);if(txt)e.textContent=txt;s.appendChild(e);return e};
+  const cx=200, cy=168;
+  const N=[["Jay Fonseca",80,62,6,"p"],["NotiUno 630",200,40,3,"m"],["S. Rodríguez Cotto",322,62,4,"p"],["Oyentes",62,232,4,"o"],["WKAQ 580",150,292,5,"m"],["El Nuevo Día",262,292,4,"m"],["Telemundo PR",340,232,3,"m"]];
+  N.forEach(([l,x,y,w,k])=>el("line",{x1:cx,y1:cy,x2:x,y2:y,stroke:k==="o"?"#C8432F":"#141412","stroke-width":w*.85,"stroke-dasharray":k==="o"?"2 6":"","stroke-linecap":k==="o"?"round":"butt"}));
+  N.forEach(([l,x,y,w,k])=>{
+    const r=6+w;
+    if(k==="m") el("rect",{x:x-r,y:y-r,width:r*2,height:r*2,fill:"#FBF8F0",stroke:"#141412","stroke-width":2});
+    else el("circle",{cx:x,cy:y,r,fill:k==="p"?"#2D4FA3":"#F0E9D8",stroke:k==="o"?"#C8432F":"#141412","stroke-width":2,"stroke-dasharray":k==="o"?"3 3":""});
+    const up=y<cy;
+    el("text",{x,y:up?y-r-8:y+r+16,"text-anchor":"middle","font-size":12,"font-weight":700,"font-family":"Atkinson Hyperlegible Next, sans-serif",fill:"#141412"},l);
   });
-  svg.appendChild(el("circle",{cx,cy,r:22,fill:"#D9372B"}));
-  svg.appendChild(el("text",{x:cx,y:cy+5,"text-anchor":"middle","font-size":13,"font-weight":700,"font-family":"Inter, sans-serif",fill:"#fff"},"JG"));
+  el("circle",{cx,cy,r:30,fill:"#C8432F",stroke:"#141412","stroke-width":2});
+  el("text",{x:cx,y:cy+6,"text-anchor":"middle","font-size":17,"font-weight":800,"font-family":"Atkinson Hyperlegible Next, sans-serif",fill:"#FBF8F0"},"JG");
 })();
 
-/* pilot form
+/* ---------- dithered art ---------- */
+const BAYER=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]].map(r=>r.map(v=>(v+.5)/16));
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const C={paper:hex("#F0E9D8"),ink:hex("#141412"),red:hex("#C8432F"),blue:hex("#2D4FA3"),yellow:hex("#E9B23C"),white:hex("#FBF8F0")};
+function dither(canvas, px, scene, bg){
+  const W=Math.max(1,Math.floor(canvas.clientWidth/px)), H=Math.max(1,Math.floor(canvas.clientHeight/px));
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext("2d"), img=ctx.createImageData(W,H), d=img.data;
+  return t=>{
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+      const layers=scene(x/W,y/H,t,W,H); let col=bg;
+      for(const [c,dens] of layers){ if(dens>BAYER[y&3][x&3]) col=c; }
+      const i=(y*W+x)*4; d[i]=col[0];d[i+1]=col[1];d[i+2]=col[2];d[i+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+  };
+}
+/* hero: a broadcast. Blue disc (the voice), red waves leaving it, flag stripes + triangle below */
+function heroScene(u,v,t,W,H){
+  const a=W/H, x=u*a, y=v;
+  const L=[];
+  // sky speckle, yellow, denser near top
+  L.push([C.yellow, .55*Math.pow(1-v,1.6)]);
+  // waves
+  const ox=a*.66, oy=.40, dx=x-ox, dy=y-oy, r=Math.hypot(dx,dy);
+  const ph=(r*9 - t*1.4)%1, ring=(ph<0?ph+1:ph);
+  if(r>.24 && r<1.25 && dx<.05){ const s=ring<.18?1:0; L.push([C.red, s*(1-(r-.24)/1.05)*1.05]); }
+  // blue disc with shading
+  if(r<.24){ const sh=.55+.45*(1-((dx+.08)*(dx+.08)+(dy+.08)*(dy+.08))/.12); L.push([C.blue, Math.min(1,sh+.25)]); }
+  // star sparkle on disc
+  const sx=x-(ox-.06), sy=y-(oy-.07); const st=Math.abs(sx)+Math.abs(sy)<.035||(Math.abs(sx)<.006&&Math.abs(sy)<.06)||(Math.abs(sy)<.006&&Math.abs(sx)<.06);
+  if(st) L.push([C.white, .95]);
+  // flag stripes bottom
+  if(y>.70){ const k=Math.floor((y-.70)/.06)%2; L.push([k?C.paper:C.red, k?0:.92]); }
+  // blue triangle on stripes
+  if(y>.62 && x<a*.42 && (x/(a*.42)) < 1-Math.abs((y-.81)/.19)) L.push([C.blue,.96]);
+  // ink ground line
+  if(y>.965) L.push([C.ink,1]);
+  return L;
+}
+/* footer: three dithered signals on ink */
+function footScene(u,v,t,W,H){
+  const a=W/H, x=u*a, y=v, L=[];
+  const cs=[[a*.2,C.red],[a*.5,C.paper],[a*.8,C.blue]];
+  cs.forEach(([cx,col],i)=>{
+    const r=Math.hypot(x-cx,y-.5);
+    const rr=(r*14 - t*(1+i*.3))%1; const ring=rr<0?rr+1:rr;
+    if(r<.42){ const dens = i===1 ? (r<.3?(.9-r*1.6):0) : (ring<.45? .85-(r*1.4):0); L.push([col, dens]); }
+  });
+  return L;
+}
+function run(){
+  const art=document.getElementById("art"), foot=document.getElementById("foot");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let A=dither(art,5,heroScene,C.paper), F=dither(foot,5,footScene,C.ink);
+  let t=0, last=0;
+  function loop(ts){ if(ts-last>90){ t+=.09; A(t); F(t); last=ts; } if(!reduce) requestAnimationFrame(loop); }
+  A(0); F(0); if(!reduce) requestAnimationFrame(loop);
+  let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{A=dither(art,5,heroScene,C.paper);F=dither(foot,5,footScene,C.ink);A(t);F(t)},150)});
+}
+document.fonts ? document.fonts.ready.then(run) : run();
+
+/* ---------- pilot form ----------
    Set FORM_ENDPOINT to a URL that accepts a JSON POST (Supabase edge
    function, Formspree, etc.). Until then it opens an email draft. */
 const FORM_ENDPOINT = "";
 const FALLBACK_EMAIL = "hola@resuenapr.com";
 document.getElementById("form").addEventListener("submit", async e=>{
   e.preventDefault();
-  const input=e.target.correo;
-  if(!input.value || !input.checkValidity()){ input.focus(); return; }
-  if(FORM_ENDPOINT){
-    try{ await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({correo:input.value,source:"landing"})}); }catch(_){}
-  } else {
-    location.href=`mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent("Piloto Resuena")}&body=${encodeURIComponent("Quiero unirme al piloto. Mi correo: "+input.value)}`;
-  }
-  e.target.style.display="none"; document.querySelector(".fine").style.display="none"; document.getElementById("ok").style.display="block";
+  const f=e.target, data=Object.fromEntries(new FormData(f));
+  if(!data.nombre){ f.nombre.focus(); return; }
+  if(!data.correo || !f.correo.checkValidity()){ f.correo.focus(); return; }
+  if(FORM_ENDPOINT){ try{ await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...data,source:"landing"})}); }catch(_){} }
+  else { location.href=`mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent("Piloto Resuena")}&body=${encodeURIComponent(Object.entries(data).map(([k,v])=>k+": "+v).join("\n"))}`; }
+  f.style.display="none"; document.getElementById("ok").style.display="block";
 });
 </script>
 </body>
