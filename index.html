@@ -39,7 +39,7 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .chip svg{flex:none}
 
 /* voices */
-.voices{position:relative;width:100%;max-width:540px;height:110px;margin:88px auto 0}
+.voices{position:relative;width:100%;max-width:540px;height:110px;margin:96px auto 0}
 .v{position:absolute;transform:translate(-50%,-50%);z-index:1}
 .v.on{z-index:3}
 .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:500;font-size:12.5px;color:var(--ink);background:#F4F4F4!important;border:3px solid #fff;box-shadow:0 0 0 1px #E4E4E4,0 6px 14px -8px rgba(0,0,0,.3);transition:transform .25s,background .25s,color .25s}
@@ -57,22 +57,20 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .v.r .bub{left:auto;right:-8px;transform:translate(0,6px)} .v.r.on .bub{transform:translate(0,0)} .v.r .bub::after{left:auto;right:23px}
 
 /* signup */
-form{display:flex;gap:8px;margin:26px auto 0;width:100%;max-width:420px}
-input{flex:1;min-width:0;border:1px solid #E4E4E4;border-radius:999px;padding-left:20px!important;padding:13px 15px;font:inherit;font-size:15px;color:var(--ink);background:#fff}
+form{display:flex;gap:8px;margin:30px auto 0;width:100%;max-width:440px}
+input{flex:1;min-width:0;border:1px solid #E2E2E2;border-radius:8px;padding:12px 14px;font:inherit;font-size:15px;color:var(--ink);background:#FCFCFC;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
 input:focus{outline:2px solid var(--ink);outline-offset:-1px}
-button{border:0;border-radius:999px;background:#141414;color:#fff;font:inherit;font-weight:600;font-size:15px;padding:13px 22px;cursor:pointer;white-space:nowrap}
-button:hover{background:var(--blue)}
+button{display:inline-flex;align-items:center;gap:10px;border:1px solid #000;border-bottom-width:3px;border-radius:8px;background:#1C1C1C;color:#fff;font:inherit;font-weight:500;font-size:15px;padding:11px 14px 9px 16px;cursor:pointer;white-space:nowrap;transition:transform .08s,border-bottom-width .08s}
+button:hover{background:#2A2A2A}
+button:active{transform:translateY(2px);border-bottom-width:1px}
+button kbd{font:500 11px Geist,sans-serif;color:#BDBDBD;border:1px solid #444;border-radius:4px;padding:1px 5px}
 .fine{margin:12px 0 0;font-size:13.5px;color:var(--soft)}
 .ok{display:none;margin:34px auto 0;font-size:15px;color:#1F6B3D;background:#EEF8F1;border-radius:12px;padding:13px 16px}
 
-/* coverage */
-.cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px 34px;padding:22px 0 26px;border-top:1px solid var(--line)}
-.ci{display:flex;align-items:center;gap:11px}
-.ci .ic{width:34px;height:34px;border-radius:9px;background:#F5F5F4;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);flex:none}
-.ci .n{font-family:Newsreader,Georgia,serif;font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--ink)}
-.ci .lb{font-size:12.5px;color:var(--muted);line-height:1.25}
-.ci.prog .ic{background:#fff;border-style:dashed;color:var(--blue)}
-.ci.prog .n{font-family:Geist,sans-serif;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:0;line-height:1.2}
+/* coverage line */
+.cov{width:100%;max-width:1100px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;padding:20px 0 26px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.cov b{color:var(--ink);font-weight:600}
+.cov .prog{color:var(--blue)}
 
 @media (max-height:780px) and (min-width:561px){
   .top{padding:14px 0}
@@ -80,7 +78,7 @@ button:hover{background:var(--blue)}
   h1{margin-top:16px}
   .lead{margin-top:14px;line-height:1.65}
   .voices{margin-top:88px;height:88px}
-  form{margin-top:18px}
+  form{margin-top:22px}
   .cov{padding:14px 0 16px}
 }
 @media (max-width:560px){
@@ -115,14 +113,15 @@ button:hover{background:var(--blue)}
       de Puerto Rico por ti, y te avisa quién habló de ti y en qué tono. <b>Resuena escucha. Tu equipo decide.</b>
     </p>
 
-    <div class="voices" id="voices" aria-hidden="true"></div>
 
     <form id="signup" novalidate>
       <label for="email" style="position:absolute;left:-9999px">Correo electrónico</label>
       <input id="email" name="correo" type="email" placeholder="tu@correo.com" autocomplete="email" required>
-      <button type="submit">Pedir acceso</button>
+      <button type="submit">Pedir acceso <kbd aria-hidden="true">↵</kbd></button>
     </form>
     <div class="ok" id="ok">Gracias. Te contactamos pronto.</div>
+
+    <div class="voices" id="voices" aria-hidden="true"></div>
       </main>
 
   <footer class="cov" id="cov"></footer>
@@ -132,11 +131,9 @@ button:hover{background:var(--blue)}
 /* ============================================================
    COVERAGE: update these numbers as sources are added.
    ============================================================ */
-const COVERAGE = [["30","emisoras","de radio","radio"],["4","canales","de TV","tv"],["12","periódicos","","prensa"],["33","medios","digitales","web"],["5","fuentes","de gobierno","gob"]];
-const ICONS = {"radio": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"6\" width=\"12\" height=\"8\" rx=\"2\"/><path d=\"M4 6l8-4\"/><circle cx=\"10.5\" cy=\"10\" r=\"1.6\"/><path d=\"M4.5 9h2M4.5 11h2\"/></svg>", "tv": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2\" y=\"3\" width=\"12\" height=\"8.5\" rx=\"1.8\"/><path d=\"M5.5 14h5\"/></svg>", "prensa": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"2.5\" y=\"2.5\" width=\"11\" height=\"11\" rx=\"1.5\"/><path d=\"M5 5.5h6M5 8h6M5 10.5h4\"/></svg>", "web": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"8\" cy=\"8\" r=\"6\"/><path d=\"M2 8h12M8 2c2 2 2 10 0 12M8 2c-2 2-2 10 0 12\"/></svg>", "gob": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M2 6.5L8 3l6 3.5\"/><path d=\"M3.5 7v5M6.5 7v5M9.5 7v5M12.5 7v5M2 13.5h12\"/></svg>", "redes": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"4\" cy=\"8\" r=\"1.8\"/><circle cx=\"12\" cy=\"4\" r=\"1.8\"/><circle cx=\"12\" cy=\"12\" r=\"1.8\"/><path d=\"M5.6 7.2l4.8-2.4M5.6 8.8l4.8 2.4\"/></svg>"};
+const COVERAGE = [["30","emisoras de radio"],["4","canales de TV"],["12","periódicos"],["33","medios digitales"],["5","fuentes de gobierno"]];
 document.getElementById("cov").innerHTML =
-  COVERAGE.map(([n,a,b,k])=>`<div class="ci"><span class="ic">${ICONS[k]}</span><div><div class="n">${n}</div><div class="lb">${a} ${b}</div></div></div>`).join("") +
-  `<div class="ci prog"><span class="ic">${ICONS.redes}</span><div><div class="n">Redes sociales</div><div class="lb">en progreso</div></div></div>`;
+  COVERAGE.map(([n,l])=>`<span><b>${n}</b> ${l}</span>`).join("") + `<span class="prog">● Redes sociales en progreso</span>`;
 
 /* ============================================================
    VOICES: who talks about you (illustrative roles, no real names)
@@ -162,7 +159,6 @@ let k=0;
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function next(){ els.forEach(e=>e.classList.remove("on")); els[k%els.length].classList.add("on"); k++; }
 next(); if(!reduce) setInterval(next, 2400);
-els.forEach((e,j)=>e.addEventListener("mouseenter",()=>{els.forEach(x=>x.classList.remove("on"));e.classList.add("on");k=j+1;}));
 
 
 /* ============================================================
