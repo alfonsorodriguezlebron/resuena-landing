@@ -42,7 +42,8 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .demo{position:relative;width:100%;max-width:620px;height:226px;margin:30px auto 0;text-align:left;overflow:hidden}
 .mc{position:absolute;left:4px;right:4px;top:4px;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid var(--bd,#E3D7EF);border-radius:14px;padding:11px 14px;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .45s ease,border-color .2s ease;cursor:default}
 .mc:hover{border-color:var(--bdh,#CDB8E6);transform:var(--t) translateY(-2px)}
-.mc .a{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3550}
+.mc .a{position:relative;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;flex:none;color:#3B3B45;background:#F4F4F5!important}
+.mc .a .sd{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;border:2px solid #fff}
 .mc .a.anon{background:#fff!important;border:2px dashed #DCD2E8;color:#8C83A0}
 .mc .tx{flex:1;min-width:0}
 .mc .l1{font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -50,7 +51,7 @@ h1 .glyph{display:inline-block;vertical-align:.55em;margin:0 .04em 0 .08em}
 .mc .l2{font-size:12px;color:#8C8799;margin-top:2px}
 .topic{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#3B3550;background:#fff;border:0;border-radius:6px;padding:5px 9px;white-space:nowrap;background:var(--soft2,#F5F1FA)}
 .topic i{width:7px;height:7px;border-radius:50%;display:block}
-.pl{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none;background:var(--soft2,#F5F1FA)}
+.pl{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none;background:#F4F4F5;border:1px solid #E7E7EA}
 form{display:flex;gap:8px;margin:30px auto 0;width:100%;max-width:440px}
 input{flex:1;min-width:0;border:1px solid #E2E2E2;border-radius:8px;padding:12px 14px;font:inherit;font-size:15px;color:var(--ink);background:#FCFCFC;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
 input:focus{outline:2px solid var(--ink);outline-offset:-1px}
@@ -143,11 +144,11 @@ const DOT={neg:"#E5484D",pos:"#2F9E6B",neu:"#8B6CF0"};
 // pastel per card: border, hover border, soft fill (avatar, tag, play)
 const PASTEL=[{bd:"#DCCEF5",bdh:"#C4AEEE",soft:"#F3EEFC"},{bd:"#C9DDFB",bdh:"#A9C7F6",soft:"#EDF4FE"},{bd:"#C8EBD6",bdh:"#A6DDBD",soft:"#ECF8F1"},{bd:"#FBDCC8",bdh:"#F6C5A6",soft:"#FEF3EC"},{bd:"#F7D2E4",bdh:"#F0B5D1",soft:"#FDEFF6"}];
 const TOPIC=["Llamada","Partido","Prensa","Escuelas","Maestros","Convención","Gobierno"];
-const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#3B3550"/></svg></span>';
+const PLAY='<span class="pl"><svg width="9" height="10" viewBox="0 0 10 12"><path d="M1 1l8 5-8 5z" fill="#3B3B45"/></svg></span>';
 (function(){
   const demo=document.getElementById("demo"); let k=0; const list=[]; const GAP=10;
   const make=(v,n)=>{ const el=document.createElement("div"); el.className="mc"; const c=PASTEL[n%PASTEL.length]; el.style.setProperty("--bd",c.bd); el.style.setProperty("--bdh",c.bdh); el.style.setProperty("--soft2",c.soft);
-    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.i}</span><div class="tx"><div class="l1"><b>${v.who}</b> ${v.say}</div><div class="l2">${v.where}</div></div><span class="topic"><i style="background:${DOT[v.t]}"></i>${TOPIC[n%TOPIC.length]}</span>${PLAY}`; return el; };
+    el.innerHTML=`<span class="a${v.anon?" anon":""}" style="background:${PASTEL[n%PASTEL.length].soft}">${v.anon?"?":v.i}<i class="sd" style="background:${DOT[v.t]}"></i></span><div class="tx"><div class="l1"><b>${v.who}</b> ${v.say}</div><div class="l2">${v.where} · ${TOPIC[n%TOPIC.length]}</div></div>${PLAY}`; return el; };
   const fits=()=>{ let y=0,c=0; for(const el of list){ y+=el.offsetHeight; if(y>demo.clientHeight-4) break; c++; y+=GAP; } return Math.max(1,c); };
   const place=()=>{ const max=fits(); let y=0; list.forEach((el,i)=>{ const t=i<max?`translateY(${y}px)`:`translateY(${demo.clientHeight}px)`; el.style.setProperty("--t",t); el.style.transform=t; el.style.opacity=i<max?1:0; y+=el.offsetHeight+GAP; }); };
   const add=()=>{ const n=k%NOTES.length; const el=make(NOTES[n],n); k++;
